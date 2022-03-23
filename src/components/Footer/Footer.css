@@ -1,0 +1,13 @@
+footer {
+  color: var(--text);
+  border-top: 1px solid var(--secondary);
+  box-sizing: border-box;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer a {
+  color: var(--text);
+}

@@ -1,0 +1,17 @@
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--info);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+main {
+  min-height: calc(100vh - 2.5rem);
+  background-color: var(--background);
+}
