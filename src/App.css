@@ -11,7 +11,69 @@ a:hover {
   text-decoration: underline;
 }
 
-main {
+.main-container {
   min-height: calc(100vh - 2.5rem);
+  width: 100vw;
   background-color: var(--background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main {
+  width: clamp(450px, 85vw, 800px);
+  margin: 2rem 0;
+}
+
+h1 {
+  margin: 0;
+  padding-bottom: 0.25rem;
+}
+
+.app-description {
+  font-weight: 500;
+  color: var(--secondary);
+}
+
+section {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 5px 5px 8px var(--border);
+  margin-top: 1rem;
+}
+
+h2 {
+  color: var(--info);
+  font-size: 1rem;
+  font-weight: 900;
+  border-bottom: 1px solid var(--border);
+  margin: 0;
+  padding: 0.5rem 1rem;
+}
+
+form {
+  padding: 1rem;
+  display: grid;
+}
+
+label {
+  font-size: 1.1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+input {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  border: 1px solid var(--secondary);
+  border-radius: 0.25rem;
+  padding: 0.3rem 0.4rem;
+}
+
+@media screen and (max-width: 480px) {
+  main {
+    width: 90vw;
+  }
 }

@@ -1,6 +1,6 @@
 footer {
   color: var(--text);
-  border-top: 1px solid var(--secondary);
+  border-top: 1px solid var(--border);
   box-sizing: border-box;
   height: 2.5rem;
   display: flex;

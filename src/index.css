@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 
 body {
   margin: 0;
@@ -8,10 +8,11 @@ body {
 }
 
 :root {
-  --background: #F4F5F4;
   --text: #161316;
+  --background: #F4F5F4;
+  --border: #E6E8E6;
   --info: #3772FF;
   --danger: #DF2935;
   --warning: #FDCA40;
-  --secondary: #E6E8E6;
+  --secondary: #858485;
 }
