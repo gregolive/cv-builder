@@ -1,0 +1,39 @@
+label {
+  font-size: 1.1rem;
+  font-weight: 500;
+  display: grid;
+  grid-template-columns: 1fr 9fr;
+  align-items: center;
+  gap: 1rem;
+}
+
+input {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  border: 1px solid var(--secondary);
+  border-radius: 0.25rem;
+  padding: 0.3rem 0.4rem;
+  max-width: 15rem;
+}
+
+@media screen and (max-width: 1024px) {
+  label {
+    grid-template-columns: 1fr 6fr;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  label {
+    grid-template-columns: 1fr 4.8fr;
+  }
+
+  input {
+    max-width: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  label {
+    grid-template-columns: 1fr 2.8fr;
+  }
+}
