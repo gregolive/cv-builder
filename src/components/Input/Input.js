@@ -17,8 +17,8 @@ class Input extends React.Component {
           onChange={(e) => handleChange(e)}
         />
       </label>
-    )
-  }
-}
+    );
+  };
+};
 
 export default Input;

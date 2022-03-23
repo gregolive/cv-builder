@@ -35,7 +35,7 @@ h1 {
   color: var(--secondary);
 }
 
-section {
+form, section {
   background-color: white;
   border-radius: 0.5rem;
   box-shadow: 5px 5px 8px var(--border);
@@ -49,30 +49,46 @@ h2 {
   border-bottom: 1px solid var(--border);
   margin: 0;
   padding: 0.5rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-form {
+fieldset {
+  margin: 0;
   padding: 1rem 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  border: none;
 }
 
-button {
+article {
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.btn {
   font-family: 'Roboto', sans-serif;
-  color: white;
-  background-color: var(--info);
-  font-size: 1.1rem;
   font-weight: 500;
   border: none;
   border-radius: 0.25rem;
-  height: 2rem;
-  width: 4rem;
+  aspect-ratio: 1;
   cursor: pointer;
 }
 
-button > svg {
-  margin-right: 0.2rem;
+.submit-btn {
+  font-size: 0.8rem;
+  color: white;
+  background-color: var(--info);
+}
+
+.edit-btn {
+  font-size: 1rem;
+  color: var(--info);
+  background-color: transparent;
 }
 
 @media screen and (max-width: 480px) {

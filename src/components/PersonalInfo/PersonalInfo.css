@@ -1,0 +1,35 @@
+.cv-name {
+  font-size: 1.5rem;
+}
+
+.cv-title {
+  color: var(--secondary);
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding-top: 0.15rem;
+}
+
+.cv-contact {
+  font-size: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.3rem;
+}
+
+.contact-title {
+  font-weight: 600;
+}
+
+.linkedin {
+  grid-area: 1 / 2 / span 1 / span 1;
+}
+
+@media screen and (max-width: 768px) {
+  .cv-contact {
+    grid-template-columns: 1fr;
+  }
+
+  .linkedin {
+    grid-area: 3 / 1 / span 1 / span 1;
+  }
+}

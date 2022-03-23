@@ -18,7 +18,7 @@ class App extends React.Component {
         <Footer text='gregolive' link='https://github.com/gregolive'/>
       </div>
     );
-  }
-}
+  };
+};
 
 export default App;
