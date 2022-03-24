@@ -23,12 +23,12 @@ class PersonalInfo extends React.Component {
   };
 
   storeState() {
-    localStorage.setItem('Personal', JSON.stringify(this.state));
+    localStorage.setItem('Information', JSON.stringify(this.state));
     console.log(this.state.edit)
   };
 
   fetchState() {
-    const savedState = JSON.parse(localStorage.getItem('Personal'));
+    const savedState = JSON.parse(localStorage.getItem('Information'));
     if (typeof savedState !== 'undefined') {
       this.setState({
         ...savedState

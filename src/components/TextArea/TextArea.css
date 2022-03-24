@@ -1,0 +1,8 @@
+textarea {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  border: 1px solid var(--secondary);
+  border-radius: 0.25rem;
+  padding: 0.3rem 0.4rem;
+  height: 6rem;
+}
