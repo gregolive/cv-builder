@@ -9,11 +9,16 @@ class Experience extends React.Component {
   
     this.state = {
       edit: true,
-      startDate: '',
-      endDate: '',
-      role: '',
-      company: '',
-      duties: '',
+      startDate1: '',
+      endDate1: '',
+      role1: '',
+      company1: '',
+      duties1: '',
+      startDate2: '',
+      endDate2: '',
+      role2: '',
+      company2: '',
+      duties2: '',
     };
   
     this.storeState = this.storeState.bind(this);
@@ -63,7 +68,21 @@ class Experience extends React.Component {
   };
 
   render() {
-    const { edit, startDate, endDate, role, company, duties } = this.state;
+    const { 
+      edit, startDate1, endDate1, role1, company1, duties1,
+      startDate2, endDate2, role2, company2, duties2,
+    } = this.state;
+
+    const experience2 = (role2 !== '') ? (
+      <article className='work-experience'>
+        <p className='date-col'>{startDate2} - {(endDate2 === '') ? 'present' : endDate2}</p>
+        <div className='details-col'>
+          <strong className='role'>{role2}</strong>
+          <p className='company'>{company2}</p>
+          <p className='duties'>{duties2}</p>
+        </div>
+      </article>
+    ) : null;
 
     const editMode = (
       <form onSubmit={(e) => this.onSubmit(e)}>
@@ -77,13 +96,25 @@ class Experience extends React.Component {
         <fieldset>
           <h3>WORK EXPERIENCE 1</h3>
           <div className='date-inputs'>
-            <Input label='Start Date' type='text' name='startDate' placeholder='June 2018' value={startDate} handleChange={this.handleChange} />
-            <Input label='End Date' type='text' name='endDate' placeholder='August 2021' value={endDate} handleChange={this.handleChange} />
+            <Input label='Start Date' type='text' name='startDate1' placeholder='June 2018' value={startDate1} handleChange={this.handleChange} />
+            <Input label='End Date' type='text' name='endDate1' placeholder='August 2021' value={endDate1} handleChange={this.handleChange} />
             <small className='form-notification'>Leave End Date blank for an ongoing experience.</small>
           </div>
-          <Input label='Role' type='text' name='role' placeholder='Master' value={role} handleChange={this.handleChange} />
-          <Input label='Company' type='text' name='company' placeholder='Jeti Order' value={company} handleChange={this.handleChange} />
-          <TextArea label='Description' name='duties' placeholder='Claimed the high ground to defeat Darth Vader.' value={duties} handleChange={this.handleChange}/>
+          <Input label='Role' type='text' name='role1' placeholder='Master' value={role1} handleChange={this.handleChange} />
+          <Input label='Company' type='text' name='company1' placeholder='Jeti Order' value={company1} handleChange={this.handleChange} />
+          <TextArea label='Description' name='duties1' placeholder='Claimed the high ground to defeat Darth Vader.' value={duties1} handleChange={this.handleChange}/>
+        </fieldset>
+
+        <fieldset>
+          <h3>WORK EXPERIENCE 2</h3>
+          <div className='date-inputs'>
+            <Input label='Start Date' type='text' name='startDate2' placeholder='January 2014' value={startDate2} handleChange={this.handleChange} />
+            <Input label='End Date' type='text' name='endDate2' placeholder='April 2018' value={endDate2} handleChange={this.handleChange} />
+            <small className='form-notification'>Leave End Date blank for an ongoing experience.</small>
+          </div>
+          <Input label='Role' type='text' name='role2' placeholder='General' value={role2} handleChange={this.handleChange} />
+          <Input label='Company' type='text' name='company2' placeholder='Jeti Order' value={company2} handleChange={this.handleChange} />
+          <TextArea label='Description' name='duties2' placeholder='Led troops to many famous victories during the Clone Wars.' value={duties2} handleChange={this.handleChange}/>
         </fieldset>
       </form>
     );
@@ -98,13 +129,15 @@ class Experience extends React.Component {
         </h2>
 
         <article className='work-experience'>
-          <p className='date-col'>{startDate} - {(endDate === '') ? 'present' : endDate}</p>
+          <p className='date-col'>{startDate1} - {(endDate1 === '') ? 'present' : endDate1}</p>
           <div className='details-col'>
-            <strong className='role'>{role}</strong>
-            <p className='company'>{company}</p>
-            <p className='duties'>{duties}</p>
+            <strong className='role'>{role1}</strong>
+            <p className='company'>{company1}</p>
+            <p className='duties'>{duties1}</p>
           </div>
         </article>
+        
+        {experience2}
       </section>
     );
 

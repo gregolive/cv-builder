@@ -93,6 +93,10 @@ article {
   gap: 0.8rem;
 }
 
+section article:not(:first-of-type) {
+  padding-top: 0.5rem;
+}
+
 .date-col {
   font-size: 0.9rem;
   font-weight: 500;
