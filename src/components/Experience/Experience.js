@@ -79,6 +79,7 @@ class Experience extends React.Component {
           <div className='date-inputs'>
             <Input label='Start Date' type='text' name='startDate' placeholder='June 2018' value={startDate} handleChange={this.handleChange} />
             <Input label='End Date' type='text' name='endDate' placeholder='August 2021' value={endDate} handleChange={this.handleChange} />
+            <small className='form-notification'>Leave End Date blank for an ongoing experience.</small>
           </div>
           <Input label='Role' type='text' name='role' placeholder='Master' value={role} handleChange={this.handleChange} />
           <Input label='Company' type='text' name='company' placeholder='Jeti Order' value={company} handleChange={this.handleChange} />
@@ -97,11 +98,11 @@ class Experience extends React.Component {
         </h2>
 
         <article className='work-experience'>
-          <p className='date-range'>{startDate} - {endDate}</p>
-          <div>
-            <strong>{role}</strong>
-            <small>{company}</small>
-            <p>{duties}</p>
+          <p className='date-col'>{startDate} - {(endDate === '') ? 'present' : endDate}</p>
+          <div className='details-col'>
+            <strong className='role'>{role}</strong>
+            <p className='company'>{company}</p>
+            <p className='duties'>{duties}</p>
           </div>
         </article>
       </section>

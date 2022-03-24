@@ -13,7 +13,6 @@ a:hover {
 
 .main-container {
   min-height: calc(100vh - 2.5rem);
-  width: 100vw;
   background-color: var(--background);
   display: flex;
   flex-direction: column;
@@ -74,12 +73,17 @@ label {
   font-weight: 500;
   display: grid;
   grid-template-columns: auto 1fr;
-  align-items: center;
+  align-items: start;
   gap: 1rem;
 }
 
 .input-label {
   min-width: 5.5rem;
+  margin-top: calc(0.3rem + 1px);
+}
+
+.form-notification {
+  color: var(--secondary);
 }
 
 article {
@@ -87,6 +91,16 @@ article {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+}
+
+.date-col {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.details-col {
+  display: flex;
+  flex-direction: column;
 }
 
 .btn {
@@ -114,6 +128,10 @@ article {
   label {
     grid-template: repeat(2, auto) / 100%;
     gap: 0.35rem;
+  }
+
+  .input-label {
+    margin-top: 0;
   }
 }
 
