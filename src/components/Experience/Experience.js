@@ -106,7 +106,13 @@ class Experience extends React.Component {
         </fieldset>
 
         <fieldset>
-          <h3>WORK EXPERIENCE 2</h3>
+          <h3>
+            WORK EXPERIENCE 2
+            <div className='tooltip'>
+              <i className="fa-solid fa-circle-info"></i>
+              <span className="tooltiptext">Leave Role blank to ignore.</span>
+            </div>
+          </h3>
           <div className='date-inputs'>
             <Input label='Start Date' type='text' name='startDate2' placeholder='January 2014' value={startDate2} handleChange={this.handleChange} />
             <Input label='End Date' type='text' name='endDate2' placeholder='April 2018' value={endDate2} handleChange={this.handleChange} />
