@@ -3,9 +3,22 @@ import React from 'react';
 
 class TextArea extends React.Component {
   render() {
-    const { name, placeholder, value, handleChange } = this.props;
+    const { label, name, placeholder, value, handleChange } = this.props;
 
-    return (
+    const withLabel = (
+      <label htmlFor={name}>
+        <span className='input-label'>{label}</span>
+        <textarea
+          id={name}
+          name={name}
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => handleChange(e)}
+        />
+      </label>
+    );
+
+    const withoutLabel = (
       <textarea
         id={name}
         name={name}
@@ -14,6 +27,8 @@ class TextArea extends React.Component {
         onChange={(e) => handleChange(e)}
       />
     );
+
+    return ((label) ? withLabel : withoutLabel);
   };
 };
 

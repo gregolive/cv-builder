@@ -1,0 +1,24 @@
+.work-experience {
+  display: grid;
+}
+
+.date-range {
+  
+}
+
+.date-inputs {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 2rem;
+}
+
+@media screen and (max-width: 480px) {
+  .date-inputs {
+    grid-template: repeat(2, auto) / 1fr;
+    gap: 1rem;
+  }
+
+  .date-inputs > * > .input-label {
+    min-width: 1rem;
+  }
+}

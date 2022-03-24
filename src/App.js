@@ -3,6 +3,7 @@ import '@fortawesome/fontawesome-free/js/all';
 import React from 'react';
 import PersonalInfo from './components/PersonalInfo/PersonalInfo';
 import PersonalStatement from './components/PersonalStatement/PersonalStatement';
+import Experience from './components/Experience/Experience';
 import Footer from './components/Footer/Footer';
 
 class App extends React.Component { 
@@ -15,6 +16,7 @@ class App extends React.Component {
             <p className='app-description'>Add your details below to build your resume.</p>
             <PersonalInfo />
             <PersonalStatement />
+            <Experience />
           </main>
         </div>
         <Footer text='gregolive' link='https://github.com/gregolive'/>

@@ -1,6 +1,6 @@
 import './PersonalStatement.css';
 import React from 'react';
-import TextArea from '../TextArea/TextArea.js';
+import TextArea from '../TextArea/TextArea';
 
 class PersonalStatement extends React.Component {
   constructor() {
@@ -18,12 +18,9 @@ class PersonalStatement extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   };
 
-  storeState() {
-    localStorage.setItem('Statement', JSON.stringify(this.state));
-    console.log(this.state.edit)
-  };
+  storeState = () => localStorage.setItem('Statement', JSON.stringify(this.state));
 
-  fetchState() {
+  fetchState = () => {
     const savedState = JSON.parse(localStorage.getItem('Statement'));
     if (typeof savedState !== 'undefined') {
       this.setState({
@@ -32,14 +29,14 @@ class PersonalStatement extends React.Component {
     }
   };
 
-  handleChange(e) {
+  handleChange = (e) => {
     this.setState((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
 
-  toggleEdit() {
+  toggleEdit = () => {
     const newEdit = (this.state.edit) ? false : true;
     this.setState((prevState) => ({
       ...prevState,
@@ -47,13 +44,13 @@ class PersonalStatement extends React.Component {
     }), () => this.storeState());
   }
 
-  onSubmit(e) {
+  onSubmit = (e) => {
     e.preventDefault();
     this.toggleEdit();
     this.forceUpdate();
   };
 
-  componentDidMount(prevProps, prevState) {
+  componentDidMount = (prevProps, prevState) => {
     if(prevState !== this.state) {
       this.fetchState();
       this.forceUpdate();
@@ -73,7 +70,7 @@ class PersonalStatement extends React.Component {
         </h2>
 
         <fieldset>
-          <TextArea name='statement' placeholder='Obi-Wan Kenobi' value={statement} handleChange={this.handleChange}/>
+          <TextArea label={false} name='statement' placeholder='Obi-Wan Kenobi' value={statement} handleChange={this.handleChange}/>
         </fieldset>
       </form>
     );

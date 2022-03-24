@@ -63,6 +63,25 @@ fieldset {
   border: none;
 }
 
+h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+label {
+  font-size: 1rem;
+  font-weight: 500;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 1rem;
+}
+
+.input-label {
+  min-width: 5.5rem;
+}
+
 article {
   padding: 1rem 1.5rem;
   display: flex;
@@ -72,23 +91,30 @@ article {
 
 .btn {
   font-family: 'Roboto', sans-serif;
+  font-size: 0.8rem;
   font-weight: 500;
   border: none;
   border-radius: 0.25rem;
+  padding: 1px 5px;
   aspect-ratio: 1;
   cursor: pointer;
 }
 
 .submit-btn {
-  font-size: 0.8rem;
   color: white;
   background-color: var(--info);
 }
 
 .edit-btn {
-  font-size: 1rem;
   color: var(--info);
   background-color: transparent;
+}
+
+@media screen and (max-width: 768px) {
+  label {
+    grid-template: repeat(2, auto) / 100%;
+    gap: 0.35rem;
+  }
 }
 
 @media screen and (max-width: 480px) {

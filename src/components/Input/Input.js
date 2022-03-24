@@ -7,7 +7,7 @@ class Input extends React.Component {
 
     return (
       <label htmlFor={name}>
-        {label}
+        <span className='input-label'>{label}</span>
         <input 
           type={type}
           id={name}
