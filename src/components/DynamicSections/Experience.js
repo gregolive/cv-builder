@@ -1,7 +1,6 @@
-import './Experience.css';
 import React from 'react';
-import Input from '../Input/Input';
-import TextArea from '../TextArea/TextArea';
+import Input from '../Form/Input';
+import TextArea from '../Form/TextArea';
 
 class Experience extends React.Component {
   constructor() {
@@ -74,7 +73,7 @@ class Experience extends React.Component {
     } = this.state;
 
     const experience2 = (role2 !== '') ? (
-      <article className='work-experience'>
+      <article className='column-article'>
         <p className='date-col'>{startDate2} — {(endDate2 === '') ? 'present' : endDate2}</p>
         <div className='details-col'>
           <strong className='role'>{role2}</strong>
@@ -85,7 +84,7 @@ class Experience extends React.Component {
     ) : null;
 
     const editMode = (
-      <form onSubmit={(e) => this.onSubmit(e)}>
+      <form className='static-form' onSubmit={(e) => this.onSubmit(e)}>
         <h2>
           EXPERIENCE
           <button type='submit' className='btn submit-btn'>
@@ -134,7 +133,7 @@ class Experience extends React.Component {
           </button>
         </h2>
 
-        <article className='work-experience'>
+        <article className='column-article'>
           <p className='date-col'>{startDate1} — {(endDate1 === '') ? 'present' : endDate1}</p>
           <div className='details-col'>
             <strong className='role'>{role1}</strong>

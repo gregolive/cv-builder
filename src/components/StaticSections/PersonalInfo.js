@@ -1,6 +1,5 @@
-import './PersonalInfo.css';
 import React from 'react';
-import Input from '../Input/Input';
+import Input from '../Form/Input';
 
 class PersonalInfo extends React.Component {
   constructor() {
@@ -65,7 +64,7 @@ class PersonalInfo extends React.Component {
     const { edit, name, title, phone, email, linkedin } = this.state;
 
     const editMode = (
-      <form onSubmit={(e) => this.onSubmit(e)}>
+      <form className='static-form' onSubmit={(e) => this.onSubmit(e)}>
         <h2>
           PERSONAL INFORMATION
           <button type='submit' className='btn submit-btn'>
@@ -92,7 +91,7 @@ class PersonalInfo extends React.Component {
           </button>
         </h2>
 
-        <article className='personal-information'>
+        <article className='static-article'>
           <div>
             <strong className='cv-name'>{name}</strong>
             <p className='cv-title'>{title}</p>

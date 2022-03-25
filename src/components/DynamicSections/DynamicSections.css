@@ -1,7 +1,41 @@
-.work-experience {
+h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+section article:not(:first-of-type) {
+  padding-top: 0.5rem;
+}
+
+.dynamic-article {
+  padding: 1rem 1.5rem;
+}
+
+.column-article {
+  padding: 1rem 1.5rem;
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 2rem;
+}
+
+.date-col {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.details-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-notification {
+  color: var(--secondary);
+  font-size: 0.8rem;
+  font-weight: 400;
 }
 
 .role {
@@ -20,6 +54,18 @@
 .duties {
   margin-top: 0.5rem;
   white-space: pre-wrap;
+}
+
+.degree {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.school {
+  color: var(--secondary);
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 0.2rem;
 }
 
 .date-inputs {
@@ -58,7 +104,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .work-experience {
+  .column-article {
     grid-template-columns: 1fr;
     gap: 0.5rem;
   }

@@ -1,6 +1,5 @@
-import './PersonalStatement.css';
 import React from 'react';
-import TextArea from '../TextArea/TextArea';
+import TextArea from '../Form/TextArea';
 
 class PersonalStatement extends React.Component {
   constructor() {
@@ -61,7 +60,7 @@ class PersonalStatement extends React.Component {
     const { edit, statement } = this.state;
 
     const editMode = (
-      <form onSubmit={(e) => this.onSubmit(e)}>
+      <form className='static-form' onSubmit={(e) => this.onSubmit(e)}>
         <h2>
           PERSONAL STATEMENT
           <button type='submit' className='btn submit-btn'>
@@ -84,7 +83,7 @@ class PersonalStatement extends React.Component {
           </button>
         </h2>
 
-        <article className='personal-statement'>
+        <article className='static-article'>
           <p>{statement}</p>
         </article>
       </section>

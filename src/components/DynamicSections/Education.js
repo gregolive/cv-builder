@@ -1,6 +1,5 @@
-import './Education.css';
 import React from 'react';
-import Input from '../Input/Input';
+import Input from '../Form/Input';
 
 class Education extends React.Component {
   constructor() {
@@ -66,7 +65,7 @@ class Education extends React.Component {
     const { edit, gradDate1, school1, degree1, gradDate2, school2, degree2 } = this.state;
 
     const education2 = (degree2 !== '') ? (
-      <article className='education'>
+      <article className='column-article'>
           <p className='date-col'>{gradDate2}</p>
           <div className='details-col'>
             <strong className='degree'>{degree2}</strong>
@@ -76,7 +75,7 @@ class Education extends React.Component {
     ) : null;
 
     const editMode = (
-      <form onSubmit={(e) => this.onSubmit(e)}>
+      <form className='static-form' onSubmit={(e) => this.onSubmit(e)}>
         <h2>
           EDUCATION
           <button type='submit' className='btn submit-btn'>
@@ -115,7 +114,7 @@ class Education extends React.Component {
           </button>
         </h2>
 
-        <article className='education'>
+        <article className='column-article'>
           <p className='date-col'>{gradDate1}</p>
           <div className='details-col'>
             <strong className='degree'>{degree1}</strong>
