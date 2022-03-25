@@ -84,7 +84,7 @@ class Experience extends React.Component {
     ) : null;
 
     const editMode = (
-      <form className='static-form' onSubmit={(e) => this.onSubmit(e)}>
+      <form className='section-form' onSubmit={(e) => this.onSubmit(e)}>
         <h2>
           EXPERIENCE
           <button type='submit' className='btn submit-btn'>

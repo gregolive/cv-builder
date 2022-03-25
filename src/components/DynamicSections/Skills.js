@@ -7,6 +7,7 @@ class Skills extends React.Component {
     super();
   
     this.state = {
+      edit: false,
       activeInput: true,
       skill: {
         id: uniqid(),
@@ -18,7 +19,11 @@ class Skills extends React.Component {
     this.storeState = this.storeState.bind(this);
     this.fetchState = this.fetchState.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.toggleForm = this.toggleForm.bind(this);
+    this.toggleEdit = this.toggleEdit.bind(this);
+    this.toggleInput = this.toggleInput.bind(this);
+    this.deleteSkill = this.deleteSkill.bind(this);
+    this.editSkill = this.editSkill.bind(this);
+    this.saveSkill = this.saveSkill.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   };
 
@@ -34,19 +39,45 @@ class Skills extends React.Component {
   };
 
   handleChange = (e) => {
-    this.setState({
-      activeInput: this.state.activeInput,
+    this.setState((prevState) => ({
+      ...prevState,
       skill: {
         id: this.state.skill.id,
         text: e.target.value,
       },
-      skills: this.state.skills,
+    }));
+  };
+
+  toggleEdit = () => {
+    const newEdit = (this.state.edit) ? false : true;
+    this.setState((prevState) => ({
+      ...prevState,
+      edit: newEdit,
+    }), () => this.storeState());
+  }
+
+  toggleInput = () => {
+    this.setState((prevState) => ({
+      ...prevState,
+      activeInput: !this.state.activeInput,
+    }));
+  };
+
+  deleteSkill = (target) => {
+    this.setState({
+      skills: this.state.skills.filter((s) => s.id !== target.id)
     });
   };
 
-  toggleForm = () => {
-    this.setState(() => ({
-      activeInput: false,
+  editSkill = (e, target) => {
+    this.setState({
+      skills: this.state.skills.map((t) => { if (t.id === target.id) { t.text = e.target.value } return t; }),
+    });
+  };
+
+  saveSkill = () => {
+    this.setState((prevState) => ({
+      ...prevState,
       skill: {
         id: uniqid(),
         text: '',
@@ -57,7 +88,8 @@ class Skills extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    this.toggleForm();
+    this.saveSkill();
+    this.toggleInput();
     this.forceUpdate();
   };
 
@@ -69,7 +101,7 @@ class Skills extends React.Component {
   };
 
   render() {
-    const { activeInput, skill, skills } = this.state;
+    const { edit, activeInput, skill, skills } = this.state;
 
     const skillList = (
       <article className='dynamic-article'>
@@ -78,7 +110,7 @@ class Skills extends React.Component {
     );
 
     const skillForm = (
-      <form className='inline-form'>
+      <form className='inline-form' onSubmit={(e) => this.onSubmit(e)}>
         <InlineInput type='text' placeholder='Force use' value={skill.text} handleChange={this.handleChange} />
         <button type='submit' className='btn submit-btn inline-btn'>
           <i className="fa-solid fa-circle-plus"></i>
@@ -86,20 +118,52 @@ class Skills extends React.Component {
       </form>
     );
 
-    return (
-      <section onSubmit={(e) => this.onSubmit(e)}>
+    const newSkillBtn = (
+      <button type='button' className='btn new-btn' onClick={this.toggleInput}>+ New Skill</button>
+    );
+
+    const skillEdit = (
+      <article className='edit-skill'>
+        {skills.map((s) =>
+          <div key={s.id} className='inline-edit'>
+            <input type='text' value={s.text} onChange={(e) => this.editSkill(e, s)} />
+            <button type='submit' className='btn delete-btn inline-btn' onClick={() => this.deleteSkill(s)}>
+              <i className="fa-solid fa-circle-xmark"></i>
+            </button>
+          </div>)
+        }
+      </article>
+    );
+
+    const normalMode = (
+      <section>
         <h2>
           SKILLS
-          <button type='submit' className='btn new-btn'>
-            <i className="fa-solid fa-circle-plus"></i>
+          <button type='button' className='btn edit-btn' onClick={this.toggleEdit}>
+            <i className="fa-solid fa-pen-to-square"></i>
           </button>
         </h2>
 
         {(skills.length > 0) ? skillList : null}
 
-        {(activeInput) ? skillForm : null}
+        {(activeInput) ? skillForm : newSkillBtn}
       </section>
     );
+
+    const editMode = (
+      <form className='section-form' onSubmit={this.toggleEdit}>
+        <h2>
+          SKILLS
+          <button type='submit' className='btn submit-btn'>
+            <i className="fa-solid fa-circle-check"></i>
+          </button>
+        </h2>
+
+        {(skills.length > 0) ? skillEdit : null}
+      </form>
+    );
+
+    return ((edit) ? editMode : normalMode);
   };
 };
 

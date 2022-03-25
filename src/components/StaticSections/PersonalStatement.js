@@ -60,7 +60,7 @@ class PersonalStatement extends React.Component {
     const { edit, statement } = this.state;
 
     const editMode = (
-      <form className='static-form' onSubmit={(e) => this.onSubmit(e)}>
+      <form className='section-form' onSubmit={(e) => this.onSubmit(e)}>
         <h2>
           PERSONAL STATEMENT
           <button type='submit' className='btn submit-btn'>

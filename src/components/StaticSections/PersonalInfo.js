@@ -64,7 +64,7 @@ class PersonalInfo extends React.Component {
     const { edit, name, title, phone, email, linkedin } = this.state;
 
     const editMode = (
-      <form className='static-form' onSubmit={(e) => this.onSubmit(e)}>
+      <form className='section-form' onSubmit={(e) => this.onSubmit(e)}>
         <h2>
           PERSONAL INFORMATION
           <button type='submit' className='btn submit-btn'>

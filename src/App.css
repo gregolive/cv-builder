@@ -19,7 +19,7 @@ ul {
 }
 
 li {
-  padding: 0;
+  padding: 0 0 0.25rem;
 }
 
 /* Main */
@@ -64,6 +64,13 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.section-form {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 5px 5px 8px var(--border);
+  margin-top: 1rem;
 }
 
 h3 {
@@ -133,19 +140,21 @@ textarea {
   background-color: var(--info);
 }
 
-.edit-btn, .new-btn {
+.edit-btn {
   color: var(--info);
   background-color: transparent;
 }
 
-/* Static Sections */
-
-.static-form {
-  background-color: white;
-  border-radius: 0.5rem;
-  box-shadow: 5px 5px 8px var(--border);
-  margin-top: 1rem;
+.new-btn {
+  color: var(--info);
+  background-color: transparent;
+  font-size: 0.9rem;
+  padding: 0 1.5rem 1rem 1.5rem;
+  display: block;
+  aspect-ratio: unset;
 }
+
+/* Static Sections */
 
 .static-article {
   padding: 1rem 1.5rem;
@@ -270,19 +279,36 @@ section article:not(:first-of-type) {
 /* Skills */
 
 .inline-form {
-  padding: 1rem 1.5rem;
+  padding: 0 1.5rem 1rem 1.5rem;
   display: grid;
   grid-template-columns: 1fr auto;
 }
 
-.inline-form > input  {
+.inline-edit {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.inline-form > input, .inline-edit > input  {
   border-radius: 0.25rem 0 0 0.25rem;
+  max-width: none;
 }
 
 .inline-btn {
   font-size: 0.9rem;
   border-radius: 0 0.25rem 0.25rem 0;
-  height: 100%;
+  max-height: 100%;
+}
+
+.delete-btn {
+  color: white;
+  background-color: var(--danger);
+}
+
+.edit-skill {
+  padding: 1rem 1.5rem;
+  display: grid;
+  gap: 1rem;
 }
 
 /* Tooltip */

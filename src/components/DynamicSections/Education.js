@@ -75,7 +75,7 @@ class Education extends React.Component {
     ) : null;
 
     const editMode = (
-      <form className='static-form' onSubmit={(e) => this.onSubmit(e)}>
+      <form className='section-form' onSubmit={(e) => this.onSubmit(e)}>
         <h2>
           EDUCATION
           <button type='submit' className='btn submit-btn'>
