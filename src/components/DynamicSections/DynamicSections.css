@@ -7,6 +7,28 @@ h3 {
   gap: 0.5rem;
 }
 
+.inline-form {
+  padding: 1rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.inline-form > input  {
+  border-radius: 0.25rem 0 0 0.25rem;
+}
+
+.inline-btn {
+  font-size: 0.9rem;
+  border-radius: 0 0.25rem 0.25rem 0;
+  height: 100%;
+}
+
+.form-notification {
+  color: var(--secondary);
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
 section article:not(:first-of-type) {
   padding-top: 0.5rem;
 }
@@ -30,12 +52,6 @@ section article:not(:first-of-type) {
 .details-col {
   display: flex;
   flex-direction: column;
-}
-
-.form-notification {
-  color: var(--secondary);
-  font-size: 0.8rem;
-  font-weight: 400;
 }
 
 .role {

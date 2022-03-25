@@ -1,5 +1,6 @@
 import React from 'react';
-import Input from '../Form/Input';
+import uniqid from "uniqid";
+import InlineInput from '../Form/InlineInput';
 
 class Skills extends React.Component {
   constructor() {
@@ -7,14 +8,17 @@ class Skills extends React.Component {
   
     this.state = {
       activeInput: true,
-      skill: '',
+      skill: {
+        id: uniqid(),
+        text: '',
+      },
       skills: [],
     };
   
     this.storeState = this.storeState.bind(this);
     this.fetchState = this.fetchState.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.toggleEdit = this.toggleEdit.bind(this);
+    this.toggleForm = this.toggleForm.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   };
 
@@ -30,26 +34,31 @@ class Skills extends React.Component {
   };
 
   handleChange = (e) => {
-    this.setState((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
+    this.setState({
+      activeInput: this.state.activeInput,
+      skill: {
+        id: this.state.skill.id,
+        text: e.target.value,
+      },
+      skills: this.state.skills,
+    });
   };
 
-  toggleEdit = () => {
-    const newEdit = (this.state.edit) ? false : true;
-    this.setState((prevState) => ({
-      ...prevState,
-      edit: newEdit,
+  toggleForm = () => {
+    this.setState(() => ({
+      activeInput: false,
+      skill: {
+        id: uniqid(),
+        text: '',
+      },
       skills: this.state.skills.concat(this.state.skill),
     }), () => this.storeState());
   }
 
   onSubmit = (e) => {
     e.preventDefault();
-    this.toggleEdit(e);
+    this.toggleForm();
     this.forceUpdate();
-    console.log(this.state.skills)
   };
 
   componentDidMount = (prevProps, prevState) => {
@@ -62,12 +71,18 @@ class Skills extends React.Component {
   render() {
     const { activeInput, skill, skills } = this.state;
 
-    const listItems = skills.map((s) => <li>{s}</li> );
+    const skillList = (
+      <article className='dynamic-article'>
+        <ul>{skills.map((s) => <li key={s.id}>{s.text}</li>)}</ul>
+      </article>
+    );
 
     const skillForm = (
-      <form>
-        <Input label={false} type='text' name='skill' placeholder='Force use' value={skill} handleChange={this.handleChange} />
-        <btn></btn>
+      <form className='inline-form'>
+        <InlineInput type='text' placeholder='Force use' value={skill.text} handleChange={this.handleChange} />
+        <button type='submit' className='btn submit-btn inline-btn'>
+          <i className="fa-solid fa-circle-plus"></i>
+        </button>
       </form>
     );
 
@@ -80,12 +95,9 @@ class Skills extends React.Component {
           </button>
         </h2>
 
-        <article className='dynamic-article'>
-          <ul>{listItems}</ul>
-        </article>
+        {(skills.length > 0) ? skillList : null}
 
         {(activeInput) ? skillForm : null}
-        
       </section>
     );
   };

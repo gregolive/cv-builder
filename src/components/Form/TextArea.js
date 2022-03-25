@@ -1,4 +1,3 @@
-import './TextArea.css';
 import React from 'react';
 
 class TextArea extends React.Component {

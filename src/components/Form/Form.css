@@ -1,3 +1,12 @@
+input {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  border: 1px solid var(--secondary);
+  border-radius: 0.25rem;
+  padding: 0.3rem 0.4rem;
+  max-width: 15rem;
+}
+
 textarea {
   font-family: 'Roboto', sans-serif;
   font-size: 1rem;
@@ -8,6 +17,10 @@ textarea {
 }
 
 @media screen and (max-width: 768px) {
+  input {
+    max-width: none;
+  }
+
   textarea {
     height: 8rem;
   }
