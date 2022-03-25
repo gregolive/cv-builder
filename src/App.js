@@ -1,7 +1,4 @@
 import './App.css';
-import './components/DynamicSections/DynamicSections.css';
-import './components/StaticSections/StaticSections.css';
-import './components/Form/Form.css';
 import '@fortawesome/fontawesome-free/js/all';
 import React from 'react';
 import PersonalInfo from './components/StaticSections/PersonalInfo';
