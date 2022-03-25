@@ -75,7 +75,7 @@ class Experience extends React.Component {
 
     const experience2 = (role2 !== '') ? (
       <article className='work-experience'>
-        <p className='date-col'>{startDate2} - {(endDate2 === '') ? 'present' : endDate2}</p>
+        <p className='date-col'>{startDate2} — {(endDate2 === '') ? 'present' : endDate2}</p>
         <div className='details-col'>
           <strong className='role'>{role2}</strong>
           <p className='company'>{company2}</p>
@@ -96,8 +96,8 @@ class Experience extends React.Component {
         <fieldset>
           <h3>WORK EXPERIENCE 1</h3>
           <div className='date-inputs'>
-            <Input label='Start Date' type='text' name='startDate1' placeholder='June 2018' value={startDate1} handleChange={this.handleChange} />
-            <Input label='End Date' type='text' name='endDate1' placeholder='August 2021' value={endDate1} handleChange={this.handleChange} />
+            <Input label='Start Date' type='text' name='startDate1' placeholder='2018/06' value={startDate1} handleChange={this.handleChange} />
+            <Input label='End Date' type='text' name='endDate1' placeholder='2021/10' value={endDate1} handleChange={this.handleChange} />
             <small className='form-notification'>Leave End Date blank for an ongoing experience.</small>
           </div>
           <Input label='Role' type='text' name='role1' placeholder='Master' value={role1} handleChange={this.handleChange} />
@@ -110,12 +110,12 @@ class Experience extends React.Component {
             WORK EXPERIENCE 2
             <div className='tooltip'>
               <i className="fa-solid fa-circle-info"></i>
-              <span className="tooltiptext">Leave Role blank to ignore.</span>
+              <span className="tooltiptext">Leave Role field blank to ignore.</span>
             </div>
           </h3>
           <div className='date-inputs'>
-            <Input label='Start Date' type='text' name='startDate2' placeholder='January 2014' value={startDate2} handleChange={this.handleChange} />
-            <Input label='End Date' type='text' name='endDate2' placeholder='April 2018' value={endDate2} handleChange={this.handleChange} />
+            <Input label='Start Date' type='text' name='startDate2' placeholder='2014/01' value={startDate2} handleChange={this.handleChange} />
+            <Input label='End Date' type='text' name='endDate2' placeholder='2018/04' value={endDate2} handleChange={this.handleChange} />
             <small className='form-notification'>Leave End Date blank for an ongoing experience.</small>
           </div>
           <Input label='Role' type='text' name='role2' placeholder='General' value={role2} handleChange={this.handleChange} />
@@ -135,7 +135,7 @@ class Experience extends React.Component {
         </h2>
 
         <article className='work-experience'>
-          <p className='date-col'>{startDate1} - {(endDate1 === '') ? 'present' : endDate1}</p>
+          <p className='date-col'>{startDate1} — {(endDate1 === '') ? 'present' : endDate1}</p>
           <div className='details-col'>
             <strong className='role'>{role1}</strong>
             <p className='company'>{company1}</p>

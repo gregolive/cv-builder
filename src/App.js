@@ -4,6 +4,7 @@ import React from 'react';
 import PersonalInfo from './components/PersonalInfo/PersonalInfo';
 import PersonalStatement from './components/PersonalStatement/PersonalStatement';
 import Experience from './components/Experience/Experience';
+import Education from './components/Education/Education';
 import Footer from './components/Footer/Footer';
 
 class App extends React.Component { 
@@ -17,6 +18,7 @@ class App extends React.Component {
             <PersonalInfo />
             <PersonalStatement />
             <Experience />
+            <Education />
           </main>
         </div>
         <Footer text='gregolive' link='https://github.com/gregolive'/>
