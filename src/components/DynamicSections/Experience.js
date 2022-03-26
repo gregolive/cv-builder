@@ -19,6 +19,7 @@ class Experience extends React.Component {
       company2: '',
       duties2: '',
     };
+    this.saveKey = 'Experience';
   
     this.storeState = this.storeState.bind(this);
     this.fetchState = this.fetchState.bind(this);
@@ -27,16 +28,9 @@ class Experience extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   };
 
-  storeState = () => localStorage.setItem('Experience', JSON.stringify(this.state));
+  storeState = () => localStorage.setItem(this.saveKey, JSON.stringify(this.state));
 
-  fetchState = () => {
-    const savedState = JSON.parse(localStorage.getItem('Experience'));
-    if (typeof savedState !== 'undefined') {
-      this.setState({
-        ...savedState
-      });
-    }
-  };
+  fetchState = () => JSON.parse(localStorage.getItem(this.saveKey));
 
   handleChange = (e) => {
     this.setState((prevState) => ({
@@ -46,12 +40,11 @@ class Experience extends React.Component {
   };
 
   toggleEdit = () => {
-    const newEdit = (this.state.edit) ? false : true;
     this.setState((prevState) => ({
       ...prevState,
-      edit: newEdit,
+      edit: !this.state.edit,
     }), () => this.storeState());
-  }
+  };
 
   onSubmit = (e) => {
     e.preventDefault();
@@ -61,15 +54,19 @@ class Experience extends React.Component {
 
   componentDidMount = (prevProps, prevState) => {
     if(prevState !== this.state) {
-      this.fetchState();
+      const savedState = this.fetchState();
+      if (typeof savedState !== 'undefined') {
+        this.setState({
+          ...savedState
+        });
+      }
       this.forceUpdate();
     }
   };
 
   render() {
     const { 
-      edit, startDate1, endDate1, role1, company1, duties1,
-      startDate2, endDate2, role2, company2, duties2,
+      edit, startDate1, endDate1, role1, company1, duties1, startDate2, endDate2, role2, company2, duties2,
     } = this.state;
 
     const experience2 = (role2 !== '') ? (

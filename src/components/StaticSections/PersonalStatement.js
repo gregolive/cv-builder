@@ -9,6 +9,7 @@ class PersonalStatement extends React.Component {
       edit: true,
       statement: '',
     };
+    this.saveKey = 'Statement';
   
     this.storeState = this.storeState.bind(this);
     this.fetchState = this.fetchState.bind(this);
@@ -17,30 +18,20 @@ class PersonalStatement extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   };
 
-  storeState = () => localStorage.setItem('Statement', JSON.stringify(this.state));
+  storeState = () => localStorage.setItem(this.saveKey, JSON.stringify(this.state));
 
-  fetchState = () => {
-    const savedState = JSON.parse(localStorage.getItem('Statement'));
-    if (typeof savedState !== 'undefined') {
-      this.setState({
-        ...savedState
-      });
-    }
-  };
+  fetchState = () => JSON.parse(localStorage.getItem(this.saveKey));
 
   handleChange = (e) => {
-    this.setState((prevState) => ({
-      ...prevState,
+    this.setState({
       [e.target.name]: e.target.value,
-    }));
+    });
   };
 
   toggleEdit = () => {
-    const newEdit = (this.state.edit) ? false : true;
-    this.setState((prevState) => ({
-      ...prevState,
-      edit: newEdit,
-    }), () => this.storeState());
+    this.setState({
+      edit: !this.state.edit,
+    }, () => this.storeState());
   }
 
   onSubmit = (e) => {
@@ -51,7 +42,12 @@ class PersonalStatement extends React.Component {
 
   componentDidMount = (prevProps, prevState) => {
     if(prevState !== this.state) {
-      this.fetchState();
+      const savedState = this.fetchState();
+      if (typeof savedState !== 'undefined') {
+        this.setState({
+          ...savedState
+        });
+      }
       this.forceUpdate();
     }
   };

@@ -14,6 +14,7 @@ class Education extends React.Component {
       school2: '',
       degree2: '',
     };
+    this.saveKey = 'Education';
   
     this.storeState = this.storeState.bind(this);
     this.fetchState = this.fetchState.bind(this);
@@ -22,16 +23,9 @@ class Education extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   };
 
-  storeState = () => localStorage.setItem('Education', JSON.stringify(this.state));
+  storeState = () => localStorage.setItem(this.saveKey, JSON.stringify(this.state));
 
-  fetchState = () => {
-    const savedState = JSON.parse(localStorage.getItem('Education'));
-    if (typeof savedState !== 'undefined') {
-      this.setState({
-        ...savedState
-      });
-    }
-  };
+  fetchState = () => JSON.parse(localStorage.getItem(this.saveKey));
 
   handleChange = (e) => {
     this.setState((prevState) => ({
@@ -41,12 +35,11 @@ class Education extends React.Component {
   };
 
   toggleEdit = () => {
-    const newEdit = (this.state.edit) ? false : true;
     this.setState((prevState) => ({
       ...prevState,
-      edit: newEdit,
+      edit: !this.state.edit,
     }), () => this.storeState());
-  }
+  };
 
   onSubmit = (e) => {
     e.preventDefault();
@@ -56,7 +49,12 @@ class Education extends React.Component {
 
   componentDidMount = (prevProps, prevState) => {
     if(prevState !== this.state) {
-      this.fetchState();
+      const savedState = this.fetchState();
+      if (typeof savedState !== 'undefined') {
+        this.setState({
+          ...savedState
+        });
+      }
       this.forceUpdate();
     }
   };

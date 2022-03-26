@@ -15,6 +15,7 @@ class Skills extends React.Component {
       },
       skills: [],
     };
+    this.saveKey = 'Skills';
   
     this.storeState = this.storeState.bind(this);
     this.fetchState = this.fetchState.bind(this);
@@ -27,16 +28,9 @@ class Skills extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   };
 
-  storeState = () => localStorage.setItem('Skills', JSON.stringify(this.state));
+  storeState = () => localStorage.setItem(this.saveKey, JSON.stringify(this.state));
 
-  fetchState = () => {
-    const savedState = JSON.parse(localStorage.getItem('Skills'));
-    if (typeof savedState !== 'undefined') {
-      this.setState({
-        ...savedState
-      });
-    }
-  };
+  fetchState = () => JSON.parse(localStorage.getItem(this.saveKey));
 
   handleChange = (e) => {
     this.setState((prevState) => ({
@@ -49,10 +43,9 @@ class Skills extends React.Component {
   };
 
   toggleEdit = () => {
-    const newEdit = (this.state.edit) ? false : true;
     this.setState((prevState) => ({
       ...prevState,
-      edit: newEdit,
+      edit: !this.state.edit,
     }), () => this.storeState());
   }
 
@@ -95,7 +88,12 @@ class Skills extends React.Component {
 
   componentDidMount = (prevProps, prevState) => {
     if(prevState !== this.state) {
-      this.fetchState();
+      const savedState = this.fetchState();
+      if (typeof savedState !== 'undefined') {
+        this.setState({
+          ...savedState
+        });
+      }
       this.forceUpdate();
     }
   };

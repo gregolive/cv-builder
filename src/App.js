@@ -8,7 +8,7 @@ import Education from './components/DynamicSections/Education';
 import Skills from './components/DynamicSections/Skills';
 import Footer from './components/Footer/Footer';
 
-class App extends React.Component { 
+class App extends React.Component {
   render() {
     return (
       <div>
