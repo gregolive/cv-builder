@@ -141,7 +141,7 @@ class Education extends React.Component {
     const editEducations = (
       <article className='edit-entry'>
         {educations.map((edu, i) =>
-          <fieldset className='dynamic-fieldset'>
+          <fieldset key={edu.id} className='dynamic-fieldset'>
             <h3>
               DEGREE {i + 1}
               <button type='submit' className='btn delete-btn' onClick={() => this.deleteEducation(edu)}>

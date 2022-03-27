@@ -106,7 +106,7 @@ class Experience extends React.Component {
 
     const experienceList = (
       <div>
-        {experiences.map((exp) => 
+        {experiences.map((exp) =>
           <article key={exp.id} className='column-article'>
             <p className='date-col'>{exp.startDate} — {(exp.endDate === '') ? 'present' : exp.endDate}</p>
             <div className='details-col'>
@@ -145,7 +145,7 @@ class Experience extends React.Component {
     const editExperiences = (
       <article className='edit-entry'>
         {experiences.map((exp, i) =>
-          <fieldset className='dynamic-fieldset'>
+          <fieldset key={exp.id} className='dynamic-fieldset'>
             <h3>
               WORK EXPERIENCE {i + 1}
               <button type='submit' className='btn delete-btn' onClick={() => this.deleteExperience(exp)}>
