@@ -2,6 +2,7 @@ import React from 'react';
 import uniqid from "uniqid";
 import Input from '../Form/Input';
 import TextArea from '../Form/TextArea';
+import { format, parseISO } from 'date-fns';
 
 class Education extends React.Component {
   constructor() {
@@ -108,7 +109,7 @@ class Education extends React.Component {
       <div>
         {educations.map((edu) => 
           <article key={edu.id} className='column-article'>
-            <p className='date-col'>{edu.gradDate}</p>
+            <p className='date-col'>{format(parseISO(edu.gradDate), 'yyyy/MM')}</p>
             <div className='details-col'>
               <strong className='degree'>{edu.degree}</strong>
               <p className='school'>{edu.school}</p>
@@ -127,7 +128,7 @@ class Education extends React.Component {
             <i className="fa-solid fa-circle-plus"></i>
           </button>
         </h3>
-        <Input label='Grad Date' type='text' name='gradDate' placeholder='June 2012' value={education.gradDate} handleChange={this.handleChange} />
+        <Input label='Graduation' type='date' name='gradDate' value={education.gradDate} handleChange={this.handleChange} />
         <Input label='School' type='text' name='school' placeholder='Jedi State University' value={education.school} handleChange={this.handleChange} />
         <Input label='Degree' type='text' name='degree' placeholder='Master of Force Control' value={education.degree} handleChange={this.handleChange} />
         <TextArea label='Description' name='honors' placeholder='Graduated with high honors.' value={education.honors} handleChange={this.handleChange}/>
@@ -148,7 +149,7 @@ class Education extends React.Component {
                 <i className="fa-solid fa-circle-xmark"></i>
               </button>
             </h3>
-            <Input label='Grad Date' type='text' count={i} name='gradDate' placeholder='June 2012' value={edu.gradDate} handleChange={(e) => this.editEducation(e, edu.id)} />
+            <Input label='Grad Date' type='date' count={i} name='gradDate' value={edu.gradDate} handleChange={(e) => this.editEducation(e, edu.id)} />
             <Input label='School' type='text' count={i} name='school' placeholder='Jedi State University' value={edu.school} handleChange={(e) => this.editEducation(e, edu.id)} />
             <Input label='Degree' type='text' count={i} name='degree' placeholder='Master of Force Control' value={edu.degree} handleChange={(e) => this.editEducation(e, edu.id)} />
             <TextArea label='Description' count={i} name='honors' placeholder='Graduated with high honors.' value={edu.honors} handleChange={(e) => this.editEducation(e, edu.id)} />

@@ -2,6 +2,7 @@ import React from 'react';
 import uniqid from "uniqid";
 import Input from '../Form/Input';
 import TextArea from '../Form/TextArea';
+import { format, parseISO } from 'date-fns';
 
 class Experience extends React.Component {
   constructor() {
@@ -108,7 +109,7 @@ class Experience extends React.Component {
       <div>
         {experiences.map((exp) =>
           <article key={exp.id} className='column-article'>
-            <p className='date-col'>{exp.startDate} — {(exp.endDate === '') ? 'present' : exp.endDate}</p>
+            <p className='date-col'>{format(parseISO(exp.startDate), 'yyyy/MM')} — {(exp.endDate === '') ? 'present' : format(parseISO(exp.endDate), 'yyyy/MM')}</p>
             <div className='details-col'>
               <strong className='role'>{exp.role}</strong>
               <p className='company'>{exp.company}</p>
@@ -128,8 +129,8 @@ class Experience extends React.Component {
           </button>
         </h3>
         <div className='date-inputs'>
-          <Input label='Start Date' type='text' name='startDate' placeholder='2018/06' value={experience.startDate} handleChange={this.handleChange} />
-          <Input label='End Date' type='text' name='endDate' placeholder='2021/10' value={experience.endDate} handleChange={this.handleChange} />
+          <Input label='Start Date' type='date' name='startDate' value={experience.startDate} handleChange={this.handleChange} />
+          <Input label='End Date' type='date' name='endDate' value={experience.endDate} handleChange={this.handleChange} />
           <small className='form-notification'>Leave End Date blank for an ongoing experience.</small>
         </div>
         <Input label='Role' type='text' name='role' placeholder='Master' value={experience.role} handleChange={this.handleChange} />
@@ -153,8 +154,8 @@ class Experience extends React.Component {
               </button>
             </h3>
             <div className='date-inputs'>
-              <Input label='Start Date' type='text' count={i} name='startDate' placeholder='2018/06' value={exp.startDate} handleChange={(e) => this.editExperience(e, exp.id)} />
-              <Input label='End Date' type='text' count={i} name='endDate' placeholder='2021/10' value={exp.endDate} handleChange={(e) => this.editExperience(e, exp.id)} />
+              <Input label='Start Date' type='date' count={i} name='startDate' value={exp.startDate} handleChange={(e) => this.editExperience(e, exp.id)} />
+              <Input label='End Date' type='date' count={i} name='endDate' value={exp.endDate} handleChange={(e) => this.editExperience(e, exp.id)} />
               <small className='form-notification'>Leave End Date blank for an ongoing experience.</small>
             </div>
             <Input label='Role' type='text' count={i} name='role' placeholder='Master' value={exp.role} handleChange={(e) => this.editExperience(e, exp.id)} />
