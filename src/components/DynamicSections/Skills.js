@@ -64,7 +64,10 @@ class Skills extends React.Component {
 
   editSkill = (e, target) => {
     this.setState({
-      skills: this.state.skills.map((t) => { if (t.id === target.id) { t.text = e.target.value } return t; }),
+      skills: this.state.skills.map((s) => {
+        if (s.id === target.id) { s[e.target.name] = e.target.value };
+        return s; 
+      }),
     });
   };
 
@@ -108,7 +111,7 @@ class Skills extends React.Component {
     );
 
     const skillForm = (
-      <form className='inline-form' onSubmit={(e) => this.onSubmit(e)}>
+      <form className='inline-dynamic-form' onSubmit={(e) => this.onSubmit(e)}>
         <InlineInput type='text' placeholder='Force use' value={skill.text} handleChange={this.handleChange} />
         <button type='submit' className='btn submit-btn inline-btn'>
           <i className="fa-solid fa-circle-plus"></i>
@@ -128,8 +131,8 @@ class Skills extends React.Component {
             <button type='submit' className='btn delete-btn inline-btn' onClick={() => this.deleteSkill(s)}>
               <i className="fa-solid fa-circle-xmark"></i>
             </button>
-          </div>)
-        }
+          </div> 
+        )}
       </article>
     );
 

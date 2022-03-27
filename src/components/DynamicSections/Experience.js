@@ -1,4 +1,5 @@
 import React from 'react';
+import uniqid from "uniqid";
 import Input from '../Form/Input';
 import TextArea from '../Form/TextArea';
 
@@ -7,17 +8,17 @@ class Experience extends React.Component {
     super();
   
     this.state = {
-      edit: true,
-      startDate1: '',
-      endDate1: '',
-      role1: '',
-      company1: '',
-      duties1: '',
-      startDate2: '',
-      endDate2: '',
-      role2: '',
-      company2: '',
-      duties2: '',
+      edit: false,
+      activeInput: true,
+      experience: {
+        id: uniqid(),
+        startDate: '',
+        endDate: '',
+        role: '',
+        company: '',
+        duties: '',
+      },
+      experiences: [],
     };
     this.saveKey = 'Experience';
   
@@ -25,6 +26,10 @@ class Experience extends React.Component {
     this.fetchState = this.fetchState.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.toggleEdit = this.toggleEdit.bind(this);
+    this.toggleInput = this.toggleInput.bind(this);
+    this.deleteExperience = this.deleteExperience.bind(this);
+    this.editExperience = this.editExperience.bind(this);
+    this.saveExperience = this.saveExperience.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   };
 
@@ -33,10 +38,12 @@ class Experience extends React.Component {
   fetchState = () => JSON.parse(localStorage.getItem(this.saveKey));
 
   handleChange = (e) => {
-    this.setState((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
+    this.setState({
+      experience: {
+        ...this.state.experience, 
+        [e.target.name]: e.target.value
+      }
+    });
   };
 
   toggleEdit = () => {
@@ -46,9 +53,47 @@ class Experience extends React.Component {
     }), () => this.storeState());
   };
 
+  toggleInput = () => {
+    this.setState((prevState) => ({
+      ...prevState,
+      activeInput: !this.state.activeInput,
+    }));
+  };
+
+  deleteExperience = (target) => {
+    this.setState({
+      experiences: this.state.experiences.filter((exp) => exp.id !== target.id)
+    });
+  };
+
+  editExperience = (e, target) => {
+    this.setState({
+      experiences: this.state.experiences.map((exp) => {
+        if (exp.id === target.id) { exp[e.target.name] = e.target.value };
+        return exp; 
+      }),
+    });
+  };
+
+  saveExperience = () => {
+    this.setState((prevState) => ({
+      ...prevState,
+      experience: {
+        id: uniqid(),
+        startDate: '',
+        endDate: '',
+        role: '',
+        company: '',
+        duties: '',
+      },
+      experiences: this.state.experiences.concat(this.state.experience),
+    }), () => this.storeState());
+  };
+
   onSubmit = (e) => {
     e.preventDefault();
-    this.toggleEdit();
+    this.saveExperience();
+    this.toggleInput();
     this.forceUpdate();
   };
 
@@ -65,60 +110,67 @@ class Experience extends React.Component {
   };
 
   render() {
-    const { 
-      edit, startDate1, endDate1, role1, company1, duties1, startDate2, endDate2, role2, company2, duties2,
-    } = this.state;
+    const { edit, activeInput, experience, experiences } = this.state;
 
-    const experience2 = (role2 !== '') ? (
-      <article className='column-article'>
-        <p className='date-col'>{startDate2} — {(endDate2 === '') ? 'present' : endDate2}</p>
-        <div className='details-col'>
-          <strong className='role'>{role2}</strong>
-          <p className='company'>{company2}</p>
-          <p className='duties'>{duties2}</p>
-        </div>
-      </article>
-    ) : null;
-
-    const editMode = (
-      <form className='section-form' onSubmit={(e) => this.onSubmit(e)}>
-        <h2>
-          EXPERIENCE
-          <button type='submit' className='btn submit-btn'>
-            <i className="fa-solid fa-circle-check"></i>
-          </button>
-        </h2>
-
-        <fieldset>
-          <h3>WORK EXPERIENCE 1</h3>
-          <div className='date-inputs'>
-            <Input label='Start Date' type='text' name='startDate1' placeholder='2018/06' value={startDate1} handleChange={this.handleChange} />
-            <Input label='End Date' type='text' name='endDate1' placeholder='2021/10' value={endDate1} handleChange={this.handleChange} />
-            <small className='form-notification'>Leave End Date blank for an ongoing experience.</small>
-          </div>
-          <Input label='Role' type='text' name='role1' placeholder='Master' value={role1} handleChange={this.handleChange} />
-          <Input label='Company' type='text' name='company1' placeholder='Jeti Order' value={company1} handleChange={this.handleChange} />
-          <TextArea label='Description' name='duties1' placeholder='Claimed the high ground to defeat Darth Vader.' value={duties1} handleChange={this.handleChange}/>
-        </fieldset>
-
-        <fieldset>
-          <h3>
-            WORK EXPERIENCE 2
-            <div className='tooltip'>
-              <i className="fa-solid fa-circle-info"></i>
-              <span className="tooltiptext">Leave Role field blank to ignore.</span>
+    const experienceList = (
+      <div>
+        {experiences.map((exp) => 
+          <article key={exp.id} className='column-article'>
+            <p className='date-col'>{exp.startDate} — {(exp.endDate === '') ? 'present' : exp.endDate}</p>
+            <div className='details-col'>
+              <strong className='role'>{exp.role}</strong>
+              <p className='company'>{exp.company}</p>
+              <p className='duties'>{exp.duties}</p>
             </div>
-          </h3>
-          <div className='date-inputs'>
-            <Input label='Start Date' type='text' name='startDate2' placeholder='2014/01' value={startDate2} handleChange={this.handleChange} />
-            <Input label='End Date' type='text' name='endDate2' placeholder='2018/04' value={endDate2} handleChange={this.handleChange} />
-            <small className='form-notification'>Leave End Date blank for an ongoing experience.</small>
-          </div>
-          <Input label='Role' type='text' name='role2' placeholder='General' value={role2} handleChange={this.handleChange} />
-          <Input label='Company' type='text' name='company2' placeholder='Jeti Order' value={company2} handleChange={this.handleChange} />
-          <TextArea label='Description' name='duties2' placeholder='Led troops to many famous victories during the Clone Wars.' value={duties2} handleChange={this.handleChange}/>
-        </fieldset>
+          </article>
+        )}
+      </div>
+    );
+
+    const experienceForm = (
+      <form className='dynamic-form' onSubmit={(e) => this.onSubmit(e)}>
+        <h3>
+          NEW WORK EXPERIENCE
+          <button type='submit' className='btn submit-btn'>
+            <i className="fa-solid fa-circle-plus"></i>
+          </button>
+        </h3>
+        <div className='date-inputs'>
+          <Input label='Start Date' type='text' name='startDate' placeholder='2018/06' value={experience.startDate} handleChange={this.handleChange} />
+          <Input label='End Date' type='text' name='endDate' placeholder='2021/10' value={experience.endDate} handleChange={this.handleChange} />
+          <small className='form-notification'>Leave End Date blank for an ongoing experience.</small>
+        </div>
+        <Input label='Role' type='text' name='role' placeholder='Master' value={experience.role} handleChange={this.handleChange} />
+        <Input label='Company' type='text' name='company' placeholder='Jeti Order' value={experience.company} handleChange={this.handleChange} />
+        <TextArea label='Description' name='duties' placeholder='Claimed the high ground to defeat Darth Vader.' value={experience.duties} handleChange={this.handleChange}/>
       </form>
+    );
+
+    const newSkillBtn = (
+      <button type='button' className='btn new-btn' onClick={this.toggleInput}>+ New Experience</button>
+    );
+
+    const experienceEdit = (
+      <article className='edit-skill'>
+        {experiences.map((exp, i) =>
+          <fieldset className='dynamic-fieldset'>
+            <h3>
+              WORK EXPERIENCE {i + 1}
+              <button type='submit' className='btn delete-btn' onClick={() => this.deleteExperience(exp)}>
+                <i className="fa-solid fa-circle-xmark"></i>
+              </button>
+            </h3>
+            <div className='date-inputs'>
+              <Input label='Start Date' type='text' name='startDate' placeholder='2018/06' value={exp.startDate} handleChange={(e) => this.editExperience(e, exp)} />
+              <Input label='End Date' type='text' name='endDate' placeholder='2021/10' value={exp.endDate} handleChange={this.handleChange} />
+              <small className='form-notification'>Leave End Date blank for an ongoing experience.</small>
+            </div>
+            <Input label='Role' type='text' name='role' placeholder='Master' value={exp.role} handleChange={this.handleChange} />
+            <Input label='Company' type='text' name='company' placeholder='Jeti Order' value={exp.company} handleChange={this.handleChange} />
+            <TextArea label='Description' name='duties' placeholder='Claimed the high ground to defeat Darth Vader.' value={exp.duties} handleChange={this.handleChange}/>
+          </fieldset>
+        )}
+      </article>
     );
 
     const normalMode = (
@@ -130,17 +182,23 @@ class Experience extends React.Component {
           </button>
         </h2>
 
-        <article className='column-article'>
-          <p className='date-col'>{startDate1} — {(endDate1 === '') ? 'present' : endDate1}</p>
-          <div className='details-col'>
-            <strong className='role'>{role1}</strong>
-            <p className='company'>{company1}</p>
-            <p className='duties'>{duties1}</p>
-          </div>
-        </article>
-        
-        {experience2}
+        {(experiences.length > 0) ? experienceList : null}
+
+        {(activeInput) ? experienceForm : newSkillBtn}
       </section>
+    );
+
+    const editMode = (
+      <form className='section-form' onSubmit={this.toggleEdit}>
+        <h2>
+          EXPERIENCE
+          <button type='submit' className='btn submit-btn'>
+            <i className="fa-solid fa-circle-check"></i>
+          </button>
+        </h2>
+
+        {(experiences.length > 0) ? experienceEdit : null}
+      </form>
     );
 
     return ((edit) ? editMode : normalMode);
