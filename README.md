@@ -11,6 +11,7 @@ Enter your information to build an online resume that is beautifully formatted a
 - Each sections is saved seperately and a button on the top right of each section allows users to swtich between a 'normal mode' where the section and its inputs are formatted like a CV and an 'edit mode' that allows users to edit/delete the inputs
 - The sections entered data (React <code>state</code>) is saved in the user's browser via Javascript's Web Storage API 
 - Each input group in a dynamic section is assigned a random id key generated via <code>uniqid</code>
+- Date field's are set using a date-picker input and <code>date-fns</code> functions help to format dates in 'normal mode'
 
 ## Reflection
 
