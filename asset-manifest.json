@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/gregolive/cv-builder/static/css/main.d203edf8.css",
+    "main.js": "/gregolive/cv-builder/static/js/main.8675b5da.js",
+    "index.html": "/gregolive/cv-builder/index.html",
+    "main.d203edf8.css.map": "/gregolive/cv-builder/static/css/main.d203edf8.css.map",
+    "main.8675b5da.js.map": "/gregolive/cv-builder/static/js/main.8675b5da.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d203edf8.css",
+    "static/js/main.8675b5da.js"
+  ]
+}
