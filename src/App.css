@@ -198,10 +198,6 @@ fieldset {
 
 /* Dynamic Sections */
 
-section article:not(:first-of-type) {
-  padding-top: 0.5rem;
-}
-
 .dynamic-form {
   margin: 0;
   padding: 1rem 1.5rem;
@@ -236,6 +232,14 @@ h3 {
   gap: 2rem;
 }
 
+.column-article:not(:first-of-type) {
+  padding-top: 0.5rem;
+}
+
+.column-article:last-child {
+  padding-bottom: 0.5rem;
+}
+
 .date-col {
   font-size: 0.9rem;
   font-weight: 500;
@@ -257,9 +261,7 @@ h3 {
   grid-column: 1 / -1;
 }
 
-/* Experience */
-
-.role {
+.role, .degree {
   font-size: 1.2rem;
   font-weight: 600;
 }
@@ -272,16 +274,9 @@ h3 {
   margin-top: 0.2rem;
 }
 
-.duties {
+.duties, .honors {
   margin-top: 0.5rem;
   white-space: pre-wrap;
-}
-
-/* Education */
-
-.degree {
-  font-size: 1.2rem;
-  font-weight: 600;
 }
 
 .school {
@@ -291,8 +286,10 @@ h3 {
   margin-top: 0.2rem;
 }
 
-.tooltip:hover .tooltiptext {
-  visibility: visible;
+.edit-entry {
+  padding: 1rem 1.5rem;
+  display: grid;
+  gap: 1rem;
 }
 
 /* Skills */
@@ -308,7 +305,7 @@ h3 {
   grid-template-columns: 1fr auto;
 }
 
-.inline-form > input, .inline-edit > input  {
+.inline-input  {
   border-radius: 0.25rem 0 0 0.25rem;
   max-width: none;
 }
@@ -322,34 +319,6 @@ h3 {
 .delete-btn {
   color: white;
   background-color: var(--danger);
-}
-
-.edit-skill {
-  padding: 1rem 1.5rem;
-  display: grid;
-  gap: 1rem;
-}
-
-/* Tooltip */
-
-.tooltip {
-  color: var(--info);
-  position: relative;
-  display: inline-block;
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  background-color: var(--info);
-  color: white;
-  font-size: 0.9em;
-  border-radius: 0.4rem;
-  margin-left: 0.5rem;
-  padding: 0.25rem;
-  min-width: 15rem;
-  position: absolute;
-  text-align: center;
-  z-index: 1;
 }
 
 /* Footer */

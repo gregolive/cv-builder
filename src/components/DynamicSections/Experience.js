@@ -119,7 +119,7 @@ class Experience extends React.Component {
       </div>
     );
 
-    const experienceForm = (
+    const newExperienceForm = (
       <form className='dynamic-form' onSubmit={(e) => this.onSubmit(e)}>
         <h3>
           NEW WORK EXPERIENCE
@@ -138,12 +138,12 @@ class Experience extends React.Component {
       </form>
     );
 
-    const newSkillBtn = (
+    const newExperienceBtn = (
       <button type='button' className='btn new-btn' onClick={this.toggleInput}>+ New Experience</button>
     );
 
-    const experienceEdit = (
-      <article className='edit-skill'>
+    const editExperiences = (
+      <article className='edit-entry'>
         {experiences.map((exp, i) =>
           <fieldset className='dynamic-fieldset'>
             <h3>
@@ -159,11 +159,13 @@ class Experience extends React.Component {
             </div>
             <Input label='Role' type='text' count={i} name='role' placeholder='Master' value={exp.role} handleChange={(e) => this.editExperience(e, exp)} />
             <Input label='Company' type='text' count={i} name='company' placeholder='Jeti Order' value={exp.company} handleChange={(e) => this.editExperience(e, exp)} />
-            <TextArea label='Description' count={i} name='duties' placeholder='Claimed the high ground to defeat Darth Vader.' value={exp.duties} handleChange={(e) => this.editExperience(e, exp)}/>
+            <TextArea label='Description' count={i} name='duties' placeholder='Claimed the high ground to defeat Darth Vader.' value={exp.duties} handleChange={(e) => this.editExperience(e, exp)} />
           </fieldset>
         )}
       </article>
     );
+
+    const noExperiences = (<article className='edit-entry'>No experiences to edit 😭</article>);
 
     const normalMode = (
       <section>
@@ -176,7 +178,7 @@ class Experience extends React.Component {
 
         {(experiences.length > 0) ? experienceList : null}
 
-        {(activeInput) ? experienceForm : newSkillBtn}
+        {(activeInput) ? newExperienceForm : newExperienceBtn}
       </section>
     );
 
@@ -189,7 +191,7 @@ class Experience extends React.Component {
           </button>
         </h2>
 
-        {(experiences.length > 0) ? experienceEdit : null}
+        {(experiences.length > 0) ? editExperiences : noExperiences}
       </form>
     );
 

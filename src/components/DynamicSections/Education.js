@@ -1,26 +1,33 @@
 import React from 'react';
+import uniqid from "uniqid";
 import Input from '../Form/Input';
+import TextArea from '../Form/TextArea';
 
 class Education extends React.Component {
   constructor() {
     super();
   
     this.state = {
-      edit: true,
-      gradDate1: '',
-      school1: '',
-      degree1: '',
-      gradDate2: '',
-      school2: '',
-      degree2: '',
+      edit: false,
+      activeInput: true,
+      education: {
+        id: uniqid(),
+        startDate: '',
+        gradDate: '',
+        school: '',
+        degree: '',
+        honors: '',
+      },
+      educations: [],
     };
     this.saveKey = 'Education';
-  
-    this.storeState = this.storeState.bind(this);
-    this.fetchState = this.fetchState.bind(this);
+
     this.handleChange = this.handleChange.bind(this);
     this.toggleEdit = this.toggleEdit.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.toggleInput = this.toggleInput.bind(this);
+    this.deleteEducation = this.deleteEducation.bind(this);
+    this.editEducation = this.editEducation.bind(this);
+    this.saveEducation = this.saveEducation.bind(this);
   };
 
   storeState = () => localStorage.setItem(this.saveKey, JSON.stringify(this.state));
@@ -28,80 +35,129 @@ class Education extends React.Component {
   fetchState = () => JSON.parse(localStorage.getItem(this.saveKey));
 
   handleChange = (e) => {
-    this.setState((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
+    this.setState({
+      education: {
+        ...this.state.education, 
+        [e.target.name]: e.target.value,
+      }
+    });
   };
 
   toggleEdit = () => {
-    this.setState((prevState) => ({
-      ...prevState,
+    this.setState({
       edit: !this.state.edit,
-    }), () => this.storeState());
+    }, () => this.storeState());
+  };
+
+  toggleInput = () => {
+    this.setState({
+      activeInput: !this.state.activeInput,
+    });
+  };
+
+  deleteEducation = (target) => {
+    this.setState({
+      educations: this.state.educations.filter((edu) => edu.id !== target.id),
+    }, () => this.storeState());
+  };
+
+  editEducation = (e, target) => {
+    this.setState({
+      educations: this.state.educations.map((edu) => {
+        if (edu.id === target.id) { edu[e.target.name] = e.target.value };
+        return edu; 
+      }),
+    });
+  };
+
+  saveEducation = () => {
+    this.setState({
+      education: {
+        id: uniqid(),
+        startDate: '',
+        gradDate: '',
+        school: '',
+        degree: '',
+        honors: '',
+      },
+      educations: this.state.educations.concat(this.state.education),
+    }, () => this.storeState());
   };
 
   onSubmit = (e) => {
     e.preventDefault();
-    this.toggleEdit();
+    this.saveEducation();
+    this.toggleInput();
     this.forceUpdate();
   };
 
-  componentDidMount = (prevProps, prevState) => {
-    if(prevState !== this.state) {
-      const savedState = this.fetchState();
-      if (typeof savedState !== 'undefined') {
-        this.setState({
-          ...savedState
-        });
-      }
+  componentDidMount = () => {
+    const savedState = this.fetchState();
+    if (typeof savedState !== 'undefined') {
+      this.setState({
+        ...savedState,
+      });
       this.forceUpdate();
     }
   };
 
   render() {
-    const { edit, gradDate1, school1, degree1, gradDate2, school2, degree2 } = this.state;
+    const { edit, activeInput, education, educations } = this.state;
 
-    const education2 = (degree2 !== '') ? (
-      <article className='column-article'>
-          <p className='date-col'>{gradDate2}</p>
-          <div className='details-col'>
-            <strong className='degree'>{degree2}</strong>
-            <p className='school'>{school2}</p>
-          </div>
-        </article>
-    ) : null;
-
-    const editMode = (
-      <form className='section-form' onSubmit={(e) => this.onSubmit(e)}>
-        <h2>
-          EDUCATION
-          <button type='submit' className='btn submit-btn'>
-            <i className="fa-solid fa-circle-check"></i>
-          </button>
-        </h2>
-
-        <fieldset>
-          <h3>DEGREE 1</h3>
-          <Input label='Grad Date' type='text' name='gradDate1' placeholder='June 2012' value={gradDate1} handleChange={this.handleChange} />
-          <Input label='School' type='text' name='school1' placeholder='Jedi State University' value={school1} handleChange={this.handleChange} />
-          <Input label='Degree' type='text' name='degree1' placeholder='Master of Force Control' value={degree1} handleChange={this.handleChange} />
-        </fieldset>
-
-        <fieldset>
-          <h3>
-          DEGREE 2
-            <div className='tooltip'>
-              <i className="fa-solid fa-circle-info"></i>
-              <span className="tooltiptext">Leave Degree field blank to ignore.</span>
+    const educationList = (
+      <div>
+        {educations.map((edu) => 
+          <article key={edu.id} className='column-article'>
+            <p className='date-col'>{edu.gradDate}</p>
+            <div className='details-col'>
+              <strong className='degree'>{edu.degree}</strong>
+              <p className='school'>{edu.school}</p>
+              <p className='honors'>{edu.honors}</p>
             </div>
-          </h3>
-          <Input label='Grad Date' type='text' name='gradDate2' placeholder='June 2010' value={gradDate2} handleChange={this.handleChange} />
-          <Input label='School' type='text' name='school2' placeholder='Stewjon University' value={school2} handleChange={this.handleChange} />
-          <Input label='Degree' type='text' name='degree2' placeholder='Bachelor of Lightsaber Arts' value={degree2} handleChange={this.handleChange} />
-        </fieldset>
+          </article>
+        )}
+      </div>
+    );
+
+    const newEducationForm = (
+      <form className='dynamic-form' onSubmit={(e) => this.onSubmit(e)}>
+        <h3>
+          NEW DEGREE
+          <button type='submit' className='btn submit-btn'>
+            <i className="fa-solid fa-circle-plus"></i>
+          </button>
+        </h3>
+        <Input label='Grad Date' type='text' name='gradDate' placeholder='June 2012' value={education.gradDate} handleChange={this.handleChange} />
+        <Input label='School' type='text' name='school' placeholder='Jedi State University' value={education.school} handleChange={this.handleChange} />
+        <Input label='Degree' type='text' name='degree' placeholder='Master of Force Control' value={education.degree} handleChange={this.handleChange} />
+        <TextArea label='Description' name='honors' placeholder='Graduated with high honors.' value={education.honors} handleChange={this.handleChange}/>
       </form>
     );
+
+    const newEducationBtn = (
+      <button type='button' className='btn new-btn' onClick={this.toggleInput}>+ New Degree</button>
+    );
+
+    const editEducations = (
+      <article className='edit-entry'>
+        {educations.map((edu, i) =>
+          <fieldset className='dynamic-fieldset'>
+            <h3>
+              DEGREE {i + 1}
+              <button type='submit' className='btn delete-btn' onClick={() => this.deleteEducation(edu)}>
+                <i className="fa-solid fa-circle-xmark"></i>
+              </button>
+            </h3>
+            <Input label='Grad Date' type='text' count={i} name='gradDate' placeholder='June 2012' value={edu.gradDate} handleChange={(e) => this.editEducation(e, edu)} />
+            <Input label='School' type='text' count={i} name='school' placeholder='Jedi State University' value={edu.school} handleChange={(e) => this.editEducation(e, edu)} />
+            <Input label='Degree' type='text' count={i} name='degree' placeholder='Master of Force Control' value={edu.degree} handleChange={(e) => this.editEducation(e, edu)} />
+            <TextArea label='Description' count={i} name='honors' placeholder='Graduated with high honors.' value={edu.honors} handleChange={(e) => this.editEducation(e, edu)} />
+          </fieldset>
+        )}
+      </article>
+    );
+
+    const noEducations = (<article className='edit-entry'>No degrees to edit 😭</article>);
 
     const normalMode = (
       <section>
@@ -112,16 +168,23 @@ class Education extends React.Component {
           </button>
         </h2>
 
-        <article className='column-article'>
-          <p className='date-col'>{gradDate1}</p>
-          <div className='details-col'>
-            <strong className='degree'>{degree1}</strong>
-            <p className='school'>{school1}</p>
-          </div>
-        </article>
-        
-        {education2}
+        {(educations.length > 0) ? educationList : null}
+
+        {(activeInput) ? newEducationForm : newEducationBtn}
       </section>
+    );
+
+    const editMode = (
+      <form className='section-form' onSubmit={this.toggleEdit}>
+        <h2>
+          EDUCATION
+          <button type='submit' className='btn submit-btn'>
+            <i className="fa-solid fa-circle-check"></i>
+          </button>
+        </h2>
+
+        {(educations.length > 0) ? editEducations : noEducations}
+      </form>
     );
 
     return ((edit) ? editMode : normalMode);

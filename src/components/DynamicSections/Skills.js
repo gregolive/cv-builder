@@ -115,7 +115,7 @@ class Skills extends React.Component {
     );
 
     const editSkills = (
-      <article className='edit-skill'>
+      <article className='edit-entry'>
         {skills.map((s) =>
           <div key={s.id} className='inline-edit'>
             <InlineInput type='text' name='text' value={s.text} handleChange={this.editSkill} obj={s} />
@@ -127,7 +127,7 @@ class Skills extends React.Component {
       </article>
     );
 
-    const noSkills = (<article className='edit-skill'>No skills to edit 😭</article>);
+    const noSkills = (<article className='edit-entry'>No skills to edit 😭</article>);
 
     const normalMode = (
       <section>

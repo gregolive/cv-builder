@@ -6,6 +6,7 @@ class InlineInput extends React.Component {
 
     return (
       <input 
+        className='inline-input'
         type={type}
         name={name}
         placeholder={placeholder}
