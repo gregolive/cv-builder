@@ -21,16 +21,13 @@ class Experience extends React.Component {
       experiences: [],
     };
     this.saveKey = 'Experience';
-  
-    this.storeState = this.storeState.bind(this);
-    this.fetchState = this.fetchState.bind(this);
+
     this.handleChange = this.handleChange.bind(this);
     this.toggleEdit = this.toggleEdit.bind(this);
     this.toggleInput = this.toggleInput.bind(this);
     this.deleteExperience = this.deleteExperience.bind(this);
     this.editExperience = this.editExperience.bind(this);
     this.saveExperience = this.saveExperience.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   };
 
   storeState = () => localStorage.setItem(this.saveKey, JSON.stringify(this.state));
@@ -41,29 +38,27 @@ class Experience extends React.Component {
     this.setState({
       experience: {
         ...this.state.experience, 
-        [e.target.name]: e.target.value
+        [e.target.name]: e.target.value,
       }
     });
   };
 
   toggleEdit = () => {
-    this.setState((prevState) => ({
-      ...prevState,
+    this.setState({
       edit: !this.state.edit,
-    }), () => this.storeState());
+    }, () => this.storeState());
   };
 
   toggleInput = () => {
-    this.setState((prevState) => ({
-      ...prevState,
+    this.setState({
       activeInput: !this.state.activeInput,
-    }));
+    });
   };
 
   deleteExperience = (target) => {
     this.setState({
-      experiences: this.state.experiences.filter((exp) => exp.id !== target.id)
-    });
+      experiences: this.state.experiences.filter((exp) => exp.id !== target.id),
+    }, () => this.storeState());
   };
 
   editExperience = (e, target) => {
@@ -76,8 +71,7 @@ class Experience extends React.Component {
   };
 
   saveExperience = () => {
-    this.setState((prevState) => ({
-      ...prevState,
+    this.setState({
       experience: {
         id: uniqid(),
         startDate: '',
@@ -87,7 +81,7 @@ class Experience extends React.Component {
         duties: '',
       },
       experiences: this.state.experiences.concat(this.state.experience),
-    }), () => this.storeState());
+    }, () => this.storeState());
   };
 
   onSubmit = (e) => {
@@ -97,14 +91,12 @@ class Experience extends React.Component {
     this.forceUpdate();
   };
 
-  componentDidMount = (prevProps, prevState) => {
-    if(prevState !== this.state) {
-      const savedState = this.fetchState();
-      if (typeof savedState !== 'undefined') {
-        this.setState({
-          ...savedState
-        });
-      }
+  componentDidMount = () => {
+    const savedState = this.fetchState();
+    if (typeof savedState !== 'undefined') {
+      this.setState({
+        ...savedState,
+      });
       this.forceUpdate();
     }
   };
@@ -161,13 +153,13 @@ class Experience extends React.Component {
               </button>
             </h3>
             <div className='date-inputs'>
-              <Input label='Start Date' type='text' name='startDate' placeholder='2018/06' value={exp.startDate} handleChange={(e) => this.editExperience(e, exp)} />
-              <Input label='End Date' type='text' name='endDate' placeholder='2021/10' value={exp.endDate} handleChange={this.handleChange} />
+              <Input label='Start Date' type='text' count={i} name='startDate' placeholder='2018/06' value={exp.startDate} handleChange={(e) => this.editExperience(e, exp)} />
+              <Input label='End Date' type='text' count={i} name='endDate' placeholder='2021/10' value={exp.endDate} handleChange={(e) => this.editExperience(e, exp)} />
               <small className='form-notification'>Leave End Date blank for an ongoing experience.</small>
             </div>
-            <Input label='Role' type='text' name='role' placeholder='Master' value={exp.role} handleChange={this.handleChange} />
-            <Input label='Company' type='text' name='company' placeholder='Jeti Order' value={exp.company} handleChange={this.handleChange} />
-            <TextArea label='Description' name='duties' placeholder='Claimed the high ground to defeat Darth Vader.' value={exp.duties} handleChange={this.handleChange}/>
+            <Input label='Role' type='text' count={i} name='role' placeholder='Master' value={exp.role} handleChange={(e) => this.editExperience(e, exp)} />
+            <Input label='Company' type='text' count={i} name='company' placeholder='Jeti Order' value={exp.company} handleChange={(e) => this.editExperience(e, exp)} />
+            <TextArea label='Description' count={i} name='duties' placeholder='Claimed the high ground to defeat Darth Vader.' value={exp.duties} handleChange={(e) => this.editExperience(e, exp)}/>
           </fieldset>
         )}
       </article>

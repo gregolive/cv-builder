@@ -17,15 +17,12 @@ class Skills extends React.Component {
     };
     this.saveKey = 'Skills';
   
-    this.storeState = this.storeState.bind(this);
-    this.fetchState = this.fetchState.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.toggleEdit = this.toggleEdit.bind(this);
     this.toggleInput = this.toggleInput.bind(this);
     this.deleteSkill = this.deleteSkill.bind(this);
     this.editSkill = this.editSkill.bind(this);
     this.saveSkill = this.saveSkill.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   };
 
   storeState = () => localStorage.setItem(this.saveKey, JSON.stringify(this.state));
@@ -33,33 +30,30 @@ class Skills extends React.Component {
   fetchState = () => JSON.parse(localStorage.getItem(this.saveKey));
 
   handleChange = (e) => {
-    this.setState((prevState) => ({
-      ...prevState,
+    this.setState({
       skill: {
-        id: this.state.skill.id,
-        text: e.target.value,
-      },
-    }));
+        ...this.state.skill, 
+        [e.target.name]: e.target.value,
+      }
+    });
   };
 
   toggleEdit = () => {
-    this.setState((prevState) => ({
-      ...prevState,
+    this.setState({
       edit: !this.state.edit,
-    }), () => this.storeState());
+    }, () => this.storeState());
   }
 
   toggleInput = () => {
-    this.setState((prevState) => ({
-      ...prevState,
+    this.setState({
       activeInput: !this.state.activeInput,
-    }));
+    });
   };
 
   deleteSkill = (target) => {
     this.setState({
-      skills: this.state.skills.filter((s) => s.id !== target.id)
-    });
+      skills: this.state.skills.filter((s) => s.id !== target.id),
+    }, () => this.storeState());
   };
 
   editSkill = (e, target) => {
@@ -72,14 +66,13 @@ class Skills extends React.Component {
   };
 
   saveSkill = () => {
-    this.setState((prevState) => ({
-      ...prevState,
+    this.setState({
       skill: {
         id: uniqid(),
         text: '',
       },
       skills: this.state.skills.concat(this.state.skill),
-    }), () => this.storeState());
+    }, () => this.storeState());
   }
 
   onSubmit = (e) => {
@@ -89,14 +82,12 @@ class Skills extends React.Component {
     this.forceUpdate();
   };
 
-  componentDidMount = (prevProps, prevState) => {
-    if(prevState !== this.state) {
-      const savedState = this.fetchState();
-      if (typeof savedState !== 'undefined') {
-        this.setState({
-          ...savedState
-        });
-      }
+  componentDidMount = () => {
+    const savedState = this.fetchState();
+    if (typeof savedState !== 'undefined') {
+      this.setState({
+        ...savedState,
+      });
       this.forceUpdate();
     }
   };
@@ -110,9 +101,9 @@ class Skills extends React.Component {
       </article>
     );
 
-    const skillForm = (
+    const newSkillForm = (
       <form className='inline-dynamic-form' onSubmit={(e) => this.onSubmit(e)}>
-        <InlineInput type='text' placeholder='Force use' value={skill.text} handleChange={this.handleChange} />
+        <InlineInput type='text' name='text' placeholder='Force use' value={skill.text} handleChange={this.handleChange} />
         <button type='submit' className='btn submit-btn inline-btn'>
           <i className="fa-solid fa-circle-plus"></i>
         </button>
@@ -123,11 +114,11 @@ class Skills extends React.Component {
       <button type='button' className='btn new-btn' onClick={this.toggleInput}>+ New Skill</button>
     );
 
-    const skillEdit = (
+    const editSkills = (
       <article className='edit-skill'>
         {skills.map((s) =>
           <div key={s.id} className='inline-edit'>
-            <input type='text' value={s.text} onChange={(e) => this.editSkill(e, s)} />
+            <InlineInput type='text' name='text' value={s.text} handleChange={this.editSkill} obj={s} />
             <button type='submit' className='btn delete-btn inline-btn' onClick={() => this.deleteSkill(s)}>
               <i className="fa-solid fa-circle-xmark"></i>
             </button>
@@ -135,6 +126,8 @@ class Skills extends React.Component {
         )}
       </article>
     );
+
+    const noSkills = (<article className='edit-skill'>No skills to edit 😭</article>);
 
     const normalMode = (
       <section>
@@ -147,7 +140,7 @@ class Skills extends React.Component {
 
         {(skills.length > 0) ? skillList : null}
 
-        {(activeInput) ? skillForm : newSkillBtn}
+        {(activeInput) ? newSkillForm : newSkillBtn}
       </section>
     );
 
@@ -160,7 +153,7 @@ class Skills extends React.Component {
           </button>
         </h2>
 
-        {(skills.length > 0) ? skillEdit : null}
+        {(skills.length > 0) ? editSkills : noSkills}
       </form>
     );
 

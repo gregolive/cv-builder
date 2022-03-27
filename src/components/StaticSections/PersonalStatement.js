@@ -10,12 +10,9 @@ class PersonalStatement extends React.Component {
       statement: '',
     };
     this.saveKey = 'Statement';
-  
-    this.storeState = this.storeState.bind(this);
-    this.fetchState = this.fetchState.bind(this);
+
     this.handleChange = this.handleChange.bind(this);
     this.toggleEdit = this.toggleEdit.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   };
 
   storeState = () => localStorage.setItem(this.saveKey, JSON.stringify(this.state));
@@ -40,14 +37,12 @@ class PersonalStatement extends React.Component {
     this.forceUpdate();
   };
 
-  componentDidMount = (prevProps, prevState) => {
-    if(prevState !== this.state) {
-      const savedState = this.fetchState();
-      if (typeof savedState !== 'undefined') {
-        this.setState({
-          ...savedState
-        });
-      }
+  componentDidMount = () => {
+    const savedState = this.fetchState();
+    if (typeof savedState !== 'undefined') {
+      this.setState({
+        ...savedState
+      });
       this.forceUpdate();
     }
   };
@@ -65,7 +60,7 @@ class PersonalStatement extends React.Component {
         </h2>
 
         <fieldset>
-          <TextArea label={false} name='statement' placeholder='Obi-Wan Kenobi' value={statement} handleChange={this.handleChange}/>
+          <TextArea label={false} name='statement' placeholder='May the force be with you...' value={statement} handleChange={this.handleChange}/>
         </fieldset>
       </form>
     );

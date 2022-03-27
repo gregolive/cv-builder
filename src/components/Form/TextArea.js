@@ -2,13 +2,13 @@ import React from 'react';
 
 class TextArea extends React.Component {
   render() {
-    const { label, name, placeholder, value, handleChange } = this.props;
+    const { label, name, count, placeholder, value, handleChange } = this.props;
 
     const withLabel = (
-      <label htmlFor={name}>
+      <label htmlFor={(typeof count === 'undefined') ? name : (name + '-' + count)}>
         <span className='input-label'>{label}</span>
         <textarea
-          id={name}
+          id={(typeof count === 'undefined') ? name : (name + '-' + count)}
           name={name}
           placeholder={placeholder}
           value={value}

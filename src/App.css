@@ -99,11 +99,6 @@ input {
   max-width: 15rem;
 }
 
-input:focus-visible {
-  outline: none;
-  box-shadow: 0 0 5px var(--info);
-}
-
 .input-label {
   min-width: 5.5rem;
   margin-top: calc(0.3rem + 1px);
@@ -116,6 +111,11 @@ textarea {
   border-radius: 0.25rem;
   padding: 0.3rem 0.4rem;
   height: 6rem;
+}
+
+input:focus-visible, textarea:focus-visible {
+  outline: none;
+  box-shadow: 0 0 5px var(--info);
 }
 
 fieldset {

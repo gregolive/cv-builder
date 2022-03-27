@@ -2,14 +2,15 @@ import React from 'react';
 
 class InlineInput extends React.Component {
   render() {
-    const { type, placeholder, value, handleChange } = this.props;
+    const { type, name, placeholder, value, handleChange, obj} = this.props;
 
     return (
       <input 
         type={type}
+        name={name}
         placeholder={placeholder}
         value={value}
-        onChange={(e) => handleChange(e)}
+        onChange={(typeof obj === 'undefined') ? (e) => handleChange(e) : (e) => handleChange(e, obj)}
       />
     );
   };
