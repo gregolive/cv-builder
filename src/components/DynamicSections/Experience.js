@@ -55,16 +55,16 @@ class Experience extends React.Component {
     });
   };
 
-  deleteExperience = (target) => {
+  deleteExperience = (targetId) => {
     this.setState({
-      experiences: this.state.experiences.filter((exp) => exp.id !== target.id),
+      experiences: this.state.experiences.filter((exp) => exp.id !== targetId),
     }, () => this.storeState());
   };
 
-  editExperience = (e, target) => {
+  editExperience = (e, targetId) => {
     this.setState({
       experiences: this.state.experiences.map((exp) => {
-        if (exp.id === target.id) { exp[e.target.name] = e.target.value };
+        if (exp.id === targetId) { exp[e.target.name] = e.target.value };
         return exp; 
       }),
     });
@@ -148,18 +148,18 @@ class Experience extends React.Component {
           <fieldset key={exp.id} className='dynamic-fieldset'>
             <h3>
               WORK EXPERIENCE {i + 1}
-              <button type='submit' className='btn delete-btn' onClick={() => this.deleteExperience(exp)}>
+              <button type='submit' className='btn delete-btn' onClick={() => this.deleteExperience(exp.id)}>
                 <i className="fa-solid fa-circle-xmark"></i>
               </button>
             </h3>
             <div className='date-inputs'>
-              <Input label='Start Date' type='text' count={i} name='startDate' placeholder='2018/06' value={exp.startDate} handleChange={(e) => this.editExperience(e, exp)} />
-              <Input label='End Date' type='text' count={i} name='endDate' placeholder='2021/10' value={exp.endDate} handleChange={(e) => this.editExperience(e, exp)} />
+              <Input label='Start Date' type='text' count={i} name='startDate' placeholder='2018/06' value={exp.startDate} handleChange={(e) => this.editExperience(e, exp.id)} />
+              <Input label='End Date' type='text' count={i} name='endDate' placeholder='2021/10' value={exp.endDate} handleChange={(e) => this.editExperience(e, exp.id)} />
               <small className='form-notification'>Leave End Date blank for an ongoing experience.</small>
             </div>
-            <Input label='Role' type='text' count={i} name='role' placeholder='Master' value={exp.role} handleChange={(e) => this.editExperience(e, exp)} />
-            <Input label='Company' type='text' count={i} name='company' placeholder='Jeti Order' value={exp.company} handleChange={(e) => this.editExperience(e, exp)} />
-            <TextArea label='Description' count={i} name='duties' placeholder='Claimed the high ground to defeat Darth Vader.' value={exp.duties} handleChange={(e) => this.editExperience(e, exp)} />
+            <Input label='Role' type='text' count={i} name='role' placeholder='Master' value={exp.role} handleChange={(e) => this.editExperience(e, exp.id)} />
+            <Input label='Company' type='text' count={i} name='company' placeholder='Jeti Order' value={exp.company} handleChange={(e) => this.editExperience(e, exp.id)} />
+            <TextArea label='Description' count={i} name='duties' placeholder='Claimed the high ground to defeat Darth Vader.' value={exp.duties} handleChange={(e) => this.editExperience(e, exp.id)} />
           </fieldset>
         )}
       </article>

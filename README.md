@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# CV Builder
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Enter your information to build an online resume that is beautifully formatted at any screen size.
 
-## Available Scripts
+[Live demo](https://gregolive.github.io/cv-builder/) 👈
 
-In the project directory, you can run:
+## Functionality
 
-### `npm start`
+- The resume is broken into 5 sections: Personal Information, Personal Statement, Experience, Education, and Skills
+- Personal Information and Personal Statement are treated as 'static sections' and Experience, Education, and skills are 'dynamic sections' that allow users to add additional jobs/degrees/skills
+- Each sections is saved seperately and a button on the top right of each section allows users to swtich between a 'normal mode' where the section and its inputs are formatted like a CV and an 'edit mode' that allows users to edit/delete the inputs
+- The sections entered data (React <code>state</code>) is saved in the user's browser via Javascript's Web Storage API 
+- Each input group in a dynamic section is assigned a random id key generated via <code>uniqid</code>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Reflection
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+This project represented my first 'big' undertaking with React and was an opportunity to solidify my knowledge of <code>props</code> and <code>state</code>. One difficulty I ran into at first was the ability to add multiple job/degree/skill inputs dynamically and correctly implement a <code>handleChange</code> function with multiple inputs. At first I tried using <code>prevState</code> and a few other methods that would not allow for the use of <code>setState</code> without hard coding a specific object key. Eventually I came across the teachique of storing of storing the object ket in an input's <code>name</code> attribute and used the following to handle inputs changes:
 
-### `npm test`
+````
+handleChange = (e) => {
+  this.setState({
+    education: {
+      ...this.state.education, 
+      [e.target.name]: e.target.value,
+    }
+  });
+};
+````
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Editing inputs that had multiple entries presented a similar problem, but I used a similar technique and matched id values to target the proper input:
 
-### `npm run build`
+````
+editEducation = (e, targetId) => {
+    this.setState({
+      educations: this.state.educations.map((edu) => {
+        if (edu.id === targetId) { edu[e.target.name] = e.target.value };
+        return edu; 
+      }),
+    });
+  };;
+};
+````
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+A final roadblock I encountered related to using <code>localStorage</code> and <code>setState</code>. Since setting state in React is asynchronous, there were times when the state was not set properly when saving or fetching data with <code>localStorage</code>,. I was able to fix this by when fetching data with:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+````
+this.forceUpdate();
+````
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+And when saving data by implementing the save function in <code>setState</code>'s callback:
 
-### `npm run eject`
+````
+ saveEducation = () => {
+    this.setState({
+      ...
+    }, () => this.storeState());
+  };
+````
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+I am unsure, however, if there is a more elegent way of completeing this, especially in the case of using <code>forceUpdate</code>.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Screenshot
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<img src='./screenshot.jpg' alt='CV builder screenshot'>

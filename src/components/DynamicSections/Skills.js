@@ -50,16 +50,16 @@ class Skills extends React.Component {
     });
   };
 
-  deleteSkill = (target) => {
+  deleteSkill = (targetId) => {
     this.setState({
-      skills: this.state.skills.filter((s) => s.id !== target.id),
+      skills: this.state.skills.filter((s) => s.id !== targetId),
     }, () => this.storeState());
   };
 
-  editSkill = (e, target) => {
+  editSkill = (e, targetId) => {
     this.setState({
       skills: this.state.skills.map((s) => {
-        if (s.id === target.id) { s[e.target.name] = e.target.value };
+        if (s.id === targetId) { s[e.target.name] = e.target.value };
         return s; 
       }),
     });
@@ -118,8 +118,8 @@ class Skills extends React.Component {
       <article className='edit-entry'>
         {skills.map((s) =>
           <div key={s.id} className='inline-edit'>
-            <InlineInput type='text' name='text' value={s.text} handleChange={this.editSkill} obj={s} />
-            <button type='submit' className='btn delete-btn inline-btn' onClick={() => this.deleteSkill(s)}>
+            <InlineInput type='text' name='text' value={s.text} handleChange={this.editSkill} id={s.id} />
+            <button type='submit' className='btn delete-btn inline-btn' onClick={() => this.deleteSkill(s.id)}>
               <i className="fa-solid fa-circle-xmark"></i>
             </button>
           </div> 

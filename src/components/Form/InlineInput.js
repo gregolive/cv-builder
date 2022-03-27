@@ -2,7 +2,7 @@ import React from 'react';
 
 class InlineInput extends React.Component {
   render() {
-    const { type, name, placeholder, value, handleChange, obj} = this.props;
+    const { type, name, placeholder, value, handleChange, id} = this.props;
 
     return (
       <input 
@@ -11,7 +11,7 @@ class InlineInput extends React.Component {
         name={name}
         placeholder={placeholder}
         value={value}
-        onChange={(typeof obj === 'undefined') ? (e) => handleChange(e) : (e) => handleChange(e, obj)}
+        onChange={(typeof id === 'undefined') ? (e) => handleChange(e) : (e) => handleChange(e, id)}
       />
     );
   };

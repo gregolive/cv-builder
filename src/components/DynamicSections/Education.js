@@ -55,16 +55,16 @@ class Education extends React.Component {
     });
   };
 
-  deleteEducation = (target) => {
+  deleteEducation = (targetId) => {
     this.setState({
-      educations: this.state.educations.filter((edu) => edu.id !== target.id),
+      educations: this.state.educations.filter((edu) => edu.id !== targetId),
     }, () => this.storeState());
   };
 
-  editEducation = (e, target) => {
+  editEducation = (e, targetId) => {
     this.setState({
       educations: this.state.educations.map((edu) => {
-        if (edu.id === target.id) { edu[e.target.name] = e.target.value };
+        if (edu.id === targetId) { edu[e.target.name] = e.target.value };
         return edu; 
       }),
     });
@@ -144,14 +144,14 @@ class Education extends React.Component {
           <fieldset key={edu.id} className='dynamic-fieldset'>
             <h3>
               DEGREE {i + 1}
-              <button type='submit' className='btn delete-btn' onClick={() => this.deleteEducation(edu)}>
+              <button type='submit' className='btn delete-btn' onClick={() => this.deleteEducation(edu.id)}>
                 <i className="fa-solid fa-circle-xmark"></i>
               </button>
             </h3>
-            <Input label='Grad Date' type='text' count={i} name='gradDate' placeholder='June 2012' value={edu.gradDate} handleChange={(e) => this.editEducation(e, edu)} />
-            <Input label='School' type='text' count={i} name='school' placeholder='Jedi State University' value={edu.school} handleChange={(e) => this.editEducation(e, edu)} />
-            <Input label='Degree' type='text' count={i} name='degree' placeholder='Master of Force Control' value={edu.degree} handleChange={(e) => this.editEducation(e, edu)} />
-            <TextArea label='Description' count={i} name='honors' placeholder='Graduated with high honors.' value={edu.honors} handleChange={(e) => this.editEducation(e, edu)} />
+            <Input label='Grad Date' type='text' count={i} name='gradDate' placeholder='June 2012' value={edu.gradDate} handleChange={(e) => this.editEducation(e, edu.id)} />
+            <Input label='School' type='text' count={i} name='school' placeholder='Jedi State University' value={edu.school} handleChange={(e) => this.editEducation(e, edu.id)} />
+            <Input label='Degree' type='text' count={i} name='degree' placeholder='Master of Force Control' value={edu.degree} handleChange={(e) => this.editEducation(e, edu.id)} />
+            <TextArea label='Description' count={i} name='honors' placeholder='Graduated with high honors.' value={edu.honors} handleChange={(e) => this.editEducation(e, edu.id)} />
           </fieldset>
         )}
       </article>
